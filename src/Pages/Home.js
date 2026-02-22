@@ -435,7 +435,7 @@ const Home = ({ }) => {
                   {/* IMAGE SECTION */}
                   <Box position="relative" role="group">
                     <Image
-                      src={`http://localhost:5000/uploads${product.images[0]}`}
+                      src={`/uploads${product.images[0]}`} // http://76.13.247.39:5000
                       h="240px"
                       w="100%"
                       objectFit="cover"
@@ -629,7 +629,7 @@ const Home = ({ }) => {
                               m={4}
                               border="1px solid #cbcbcbff"
                               // boxShadow={"0px 0px 10px rgba(0, 0, 0, 0.1)"}
-                              src={`http://localhost:5000/uploads${category.image}`}
+                              src={`/uploads${category.image}`} // http://76.13.247.39:5000
                               onMouseOver={() => handleHover(category._id)}
                               onMouseOut={handleHoverOut}
                               alt={category.name}
@@ -753,10 +753,10 @@ const Home = ({ }) => {
                         objectFit="cover"
                         bg="gray.50"
                         // p={4}
-                        src={`http://localhost:5000/uploads${hoveredProductId === product._id
+                        src={`/uploads${hoveredProductId === product._id
                           ? product.images[1]
                           : product.images[0]
-                          }`}
+                          }`} // http://76.13.247.39:5000
                         onMouseOver={() => handleHover(product._id)}
                         onMouseOut={handleHoverOut}
                         alt={product.name}

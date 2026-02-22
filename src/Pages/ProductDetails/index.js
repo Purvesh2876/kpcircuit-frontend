@@ -40,7 +40,7 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/products/${productId}`
+          `${process.env.REACT_APP_API_URL}/products/${productId}`
         );
         console.log('response123', response)
         if (!response.ok) {
@@ -48,7 +48,7 @@ const ProductDetails = () => {
         }
         const productData = await response.json();
         setProduct(productData);
-        setImagee(`http://localhost:5000/uploads${productData.images[0]}`);
+        setImagee(`/uploads${productData.images[0]}`); // http://76.13.247.39:5000
 
         // Set initial price to the first variant's price
         setCurrentPrice(productData.price);
@@ -152,9 +152,9 @@ const ProductDetails = () => {
 
           <Box display='flex' flex={["none", 1]} mb={["20px", 0]}>
             {product.images.map((imagePath, index) => (
-              <Box key={index} h="auto" w="100%" overflow="hidden" onClick={() => setImagee(`http://localhost:5000/uploads${imagePath}`)}>
+              <Box key={index} h="auto" w="100%" overflow="hidden" onClick={() => setImagee(`/uploads${imagePath}`)}> {/*// http://76.13.247.39:5000*/}
                 <Image
-                  src={`http://localhost:5000/uploads${imagePath}`}
+                  src={`/uploads${imagePath}`} // http://76.13.247.39:5000
                   alt={`Product Image ${index + 1}`}
                   borderRadius="2px"
                   objectFit="contain"

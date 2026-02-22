@@ -305,7 +305,7 @@ const AllProducts = () => {
                         overflow="hidden"
                       >
                         <Image
-                          src={`http://localhost:5000/uploads${product.images[0]}`}
+                          src={`/uploads${product.images[0]}`}
                           h="100%"
                           w="100%"
                           objectFit="cover"

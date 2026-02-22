@@ -138,7 +138,7 @@ const WishlistDrawer = ({
         Authorization: `Bearer ${token}`,
       };
 
-      axios.post('http://localhost:4000/orders/checkout', data, { headers }).then(res => console.log(res)).catch(error => {
+      axios.post('http://76.13.247.39:5000/orders/checkout', data, { headers }).then(res => console.log(res)).catch(error => {
         console.error(error);
       });
     }
@@ -192,7 +192,7 @@ const WishlistDrawer = ({
                 >
                   {/* Product Image */}
                   <Image
-                    src={`http://localhost:5000/uploads${item.product.images[0]}`}
+                    src={`/uploads${item.product.images[0]}`} // http://76.13.247.39:5000
                     alt={item.product.name}
                     boxSize="90px"
                     objectFit="cover"

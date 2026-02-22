@@ -169,9 +169,9 @@ const MyOrders = () => {
                                             <Image
                                                 src={
                                                     item.product?.images?.[0]
-                                                        ? `http://localhost:5000/uploads/${item.product.images[0]}`
+                                                        ? `/uploads/${item.product.images[0]}`
                                                         : "https://via.placeholder.com/80"
-                                                }
+                                                } // http://76.13.247.39:5000
                                                 boxSize="70px"
                                                 objectFit="cover"
                                                 borderRadius="md"

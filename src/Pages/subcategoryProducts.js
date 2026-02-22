@@ -196,7 +196,7 @@ const SubCategoryProducts = () => {
                     <Link to={`/productdetails/${product._id}`}>
                       <Box p={4} pb={0} h="220px" overflow="hidden">
                         <Image
-                          src={`http://localhost:5000/uploads${product.images[0]}`}
+                          src={`/uploads${product.images[0]}`} // http://76.13.247.39:5000
                           h="100%"
                           w="100%"
                           objectFit="contain"

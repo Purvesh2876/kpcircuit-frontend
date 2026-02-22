@@ -81,7 +81,7 @@ const SubCategoryList = () => {
                 <CardBody p={0} borderRadius="25px">
                   <Box p={4} pb={0} h="180px" overflow="hidden" position="relative">
                     <Image
-                      src={`http://localhost:5000/uploads${sub.image}`}
+                      src={`/uploads${sub.image}`} // http://76.13.247.39:5000
                       h="100%"
                       w="100%"
                       objectFit="contain"
