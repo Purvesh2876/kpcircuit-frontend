@@ -207,7 +207,7 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
                     align="start"
                   >
                     <Image
-                      src={`${process.env.REACT_APP_API_URL}/uploads${item.product.images[0]}`}
+                      src={`/uploads${item.product.images[0]}`} // ${process.env.REACT_APP_API_URL}
                       boxSize="80px"
                       borderRadius="12px"
                       objectFit="cover"

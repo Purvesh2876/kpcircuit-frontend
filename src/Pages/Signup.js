@@ -103,7 +103,13 @@ const Signup = () => {
                     <Button onClick={handleSignup} mt={4}>
                         Signup
                     </Button>
-                    <Text mt={2} cursor="pointer" color="blue.500">
+                    <Text
+                        mt={2}
+                        cursor="pointer"
+                        color="blue.500"
+                        onClick={() => navigate("/login")}
+                        _hover={{ textDecoration: "underline" }}
+                    >
                         Already registered? Login
                     </Text>
                 </Stack>

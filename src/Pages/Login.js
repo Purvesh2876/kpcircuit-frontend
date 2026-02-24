@@ -68,11 +68,17 @@ const Login = () => {
                     <Button onClick={handleLogin} mt={4}>
                         Login
                     </Button>
-                    <Text mt={2} cursor="pointer" color="blue.500">
+                    <Text
+                        mt={2}
+                        cursor="pointer"
+                        color="blue.500"
+                        onClick={() => navigate("/signup")}
+                        _hover={{ textDecoration: "underline" }}
+                    >
                         Not registered? Sign Up
                     </Text>
                 </Stack>
-                <GoogleSignIn/>
+                {/* <GoogleSignIn/> */}
             </Box>
         </Container>
     );
