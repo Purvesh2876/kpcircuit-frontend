@@ -1,106 +1,147 @@
-// About.js
+// PrivacyPolicy.jsx
 
-import { Container } from "@chakra-ui/react";
 import React from "react";
+import { Container, Box, Heading, Text } from "@chakra-ui/react";
 
-const Privacy = () => {
+const PrivacyPolicy = () => {
   return (
     <main>
-      <Container
-        className="page section section-center"
-        style={{ maxWidth: "80vw" }}
-      >
-        <h2 style={{ fontWeight: "bold" }}>Privacy Policy</h2>
-        <br />
-        <p>
-          {" "}
-          This Privacy Policy explains how The Earth Natural collects, uses, and safeguards your personal information in compliance with Indian government guidelines and our payment partner regulations (such as Cashfree). By using our website https://theearthnatural.in
-          , you agree to the terms outlined in this policy.
-        </p>
-        <p>
-          <strong>1. Information We Collect</strong>
-        </p>
-        <p>We collect the following types of information:</p>{" "}
-        <p>
-          {" "}
-          a. Personal Information: Name, email address, phone number, billing/shipping address, collected when you place an order or sign up for our services.
-        </p>
-        <div>
-          <p>
-            {" "}
-            b. Payment Information: We do not store your payment details. All payments are processed securely through our payment gateway partner.
-          </p>
-          <p>
-            {" "}
-            c. Usage Data: Includes IP address, browser type, device details, and pages visited to help us improve your browsing experience.
-          </p>
-        </div>{" "}
-        <p>
-          <strong>*2. How We Use Your Information*</strong>
-        </p>
-        <p>We use your information for the following purposes:</p>
-        <p>
-          a. *Order Fulfillment:* To process and deliver your orders efficiently.
-        </p>
-        <p>
-          b. *Communication:* To share order updates, delivery notifications, or promotional offers if you opt in.
-        </p>
-        <p>
-          c. *Improvement:* To analyze user interactions and enhance website features.
-        </p>
-        <p>
-          <strong>Data Security</strong>
-        </p>
-        <p>
-          We implement appropriate security measures to protect your personal data. Payment gateways used by us adhere to industry-standard encryption and security practices.
-        </p>
-        <p>
-          <strong>*4. Third-Party Sharing*</strong>
-        </p>
-        <p>
-          {" "}
-          We do not sell or trade personal information. We may share data only with trusted service providers (e.g., delivery partners) to complete your orders.
-        </p>
-        <p>
-          <strong>*5. Cookies and Tracking Technologies*</strong>
-        </p>
-        <p>
-          We use cookies to personalize your experience and analyze website traffic. You can modify cookie preferences in your browser settings.
-        </p>
-        <p>
-          <strong>*6. Your Rights*</strong>
-        </p>
-        <p>
-          Under Indian laws, you may access, update, or request deletion of your personal data by contacting us directly.
-        </p>
-        <p>
-          <strong>*7. Changes to the Privacy Policy*</strong>
-        </p>
-        <p>
-          This Privacy Policy may be updated periodically. Please review it occasionally for changes.
-        </p>
-        <p>
-          <strong>*8. Contact Us*</strong>
-        </p>
-        <p>
-          For privacy concerns, contact us at: https://theearthnatural.in
-        </p>
-        <p>
-          This Privacy Policy is subject to Cashfree payments rules and
-          regulations and Indian government guidelines and is effective as of
-          01-10-2025.
-        </p>
-        <p>
-          <strong>Contact Us</strong>
-        </p>
-        <p>
-          <a href="https://theearthnatural.in" className="blue" target="_blank">
-            theearthnatural.in
-          </a>
-        </p>
+      <Container maxW="container.lg" py={10}>
+        <Heading mb={6}>Privacy Policy</Heading>
+
+        <Text mb={4}>
+          <strong>Effective Date:</strong> [Insert Date]
+        </Text>
+
+        <Text mb={6}>
+          This Privacy Policy describes how <strong>KP Circuit City Private Limited</strong>
+          ("Company", "we", "our", "us") collects, uses, and protects your
+          personal information when you visit or make a purchase from
+          <strong> https://kpcircuitcity.com</strong>.
+        </Text>
+
+        {/* 1 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>1. Company Information</Heading>
+          <Text>
+            <strong>Company Name:</strong> KP Circuit City Private Limited<br />
+            <strong>Registered Address:</strong> Ground Floor, Shed No. H/161,
+            Ved Industrial Park-2, B/H Shreenath Estate,
+            Bhuwaldi Road, Kathwada GIDC, Kathwada,
+            Ahmedabad, Gujarat – 382430<br />
+            <strong>GSTIN:</strong> 24AALCK7210Q1Z4<br />
+            <strong>Contact Number:</strong> 8160334012<br />
+            <strong>Email:</strong> kpcircuitcity@gmail.com
+          </Text>
+        </Box>
+
+        {/* 2 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>2. Information We Collect</Heading>
+          <Text>
+            We may collect the following information:
+            <br /><br />
+            • Full name<br />
+            • Email address<br />
+            • Phone number<br />
+            • Shipping & billing address<br />
+            • Payment information (processed securely via Razorpay)<br />
+            • Order history<br />
+            • IP address and browser/device information
+          </Text>
+        </Box>
+
+        {/* 3 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>3. How We Use Your Information</Heading>
+          <Text>
+            We use your information to:
+            <br /><br />
+            • Process and fulfill orders<br />
+            • Communicate order updates<br />
+            • Provide customer support<br />
+            • Improve website performance<br />
+            • Comply with legal and tax obligations
+          </Text>
+        </Box>
+
+        {/* 4 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>4. Payment Security</Heading>
+          <Text>
+            All payments are processed securely through authorized payment
+            gateways including Razorpay and its banking partners.
+            <br /><br />
+            We do not store your debit/credit card details on our servers.
+          </Text>
+        </Box>
+
+        {/* 5 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>5. Data Sharing</Heading>
+          <Text>
+            We do not sell or rent your personal information.
+            <br /><br />
+            Information may be shared only with:
+            <br />
+            • Payment gateway providers<br />
+            • Courier/logistics partners for delivery<br />
+            • Government authorities if legally required
+          </Text>
+        </Box>
+
+        {/* 6 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>6. Data Protection</Heading>
+          <Text>
+            We implement reasonable technical and organizational security
+            measures to protect your data against unauthorized access,
+            alteration, disclosure, or destruction.
+          </Text>
+        </Box>
+
+        {/* 7 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>7. Cookies</Heading>
+          <Text>
+            Our website may use cookies to enhance user experience and
+            analyze website traffic. You may choose to disable cookies
+            through your browser settings.
+          </Text>
+        </Box>
+
+        {/* 8 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>8. Data Retention</Heading>
+          <Text>
+            We retain customer data only as long as necessary to fulfill
+            business, tax, and legal obligations.
+          </Text>
+        </Box>
+
+        {/* 9 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>9. Your Rights</Heading>
+          <Text>
+            You may request access, correction, or deletion of your
+            personal information by contacting us at
+            kpcircuitcity@gmail.com.
+          </Text>
+        </Box>
+
+        {/* 10 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>10. Governing Law</Heading>
+          <Text>
+            This Privacy Policy shall be governed by the laws of India.
+            Any disputes shall be subject to the jurisdiction of courts
+            located in Ahmedabad, Gujarat.
+          </Text>
+        </Box>
+
       </Container>
     </main>
   );
 };
 
-export default Privacy;
+export default PrivacyPolicy;

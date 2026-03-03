@@ -162,7 +162,7 @@ const Footer = () => {
           {/* QUICK LINKS */}
           <Box>
             <Text fontWeight="600" mb={5}>
-              Quick Links
+              Sections
             </Text>
 
             <Stack spacing={3} fontSize="sm">
@@ -171,6 +171,31 @@ const Footer = () => {
                   Shop All
                 </Text>
               </Link>
+              <Link to="/myorders">
+                <Text _hover={{ color: "white" }} color="gray.400">
+                  My Orders
+                </Text>
+              </Link>
+              <Link to="/profile">
+                <Text _hover={{ color: "white" }} color="gray.400">
+                  My Profile
+                </Text>
+              </Link>
+              <Link to="/about">
+                <Text _hover={{ color: "white" }} color="gray.400">
+                  About Us
+                </Text>
+              </Link>
+            </Stack>
+          </Box>
+          
+          {/* QUICK LINKS */}
+          <Box>
+            <Text fontWeight="600" mb={5}>
+              Quick Links
+            </Text>
+
+            <Stack spacing={3} fontSize="sm">
               <Link to="/refund">
                 <Text _hover={{ color: "white" }} color="gray.400">
                   Return / Exchange
@@ -179,6 +204,11 @@ const Footer = () => {
               <Link to="/privacy">
                 <Text _hover={{ color: "white" }} color="gray.400">
                   Privacy Policy
+                </Text>
+              </Link>
+              <Link to="/shipping">
+                <Text _hover={{ color: "white" }} color="gray.400">
+                  Shipping Policy
                 </Text>
               </Link>
               <Link to="/termsandcondition">
@@ -208,7 +238,7 @@ const Footer = () => {
           </Box>
 
           {/* NEWSLETTER */}
-          <Box>
+          {/* <Box>
             <Text fontWeight="600" mb={5}>
               Stay Updated
             </Text>
@@ -239,7 +269,7 @@ const Footer = () => {
                 _hover={{ bg: "gray.200" }}
               />
             </Flex>
-          </Box>
+          </Box> */}
 
         </SimpleGrid>
       </Box>

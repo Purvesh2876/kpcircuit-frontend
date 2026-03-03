@@ -1,78 +1,128 @@
-// Shipping.js
+// ShippingPolicy.jsx
 
-import { Container } from "@chakra-ui/react";
 import React from "react";
+import { Container, Box, Heading, Text } from "@chakra-ui/react";
 
-const Shipping = () => {
+const ShippingPolicy = () => {
   return (
     <main>
-      <Container className="page section section-center" style={{ maxWidth: '80vw' }}>
-        <h2 style={{ fontWeight: 'bold' }}>Shipping Policy</h2>
-        <br />
-        <p>
-          At The Earth Natural, we are committed to delivering your orders quickly and efficiently, ensuring that our products reach you in the best condition.
-        </p>
+      <Container maxW="container.lg" py={10}>
+        <Heading mb={6}>Shipping Policy</Heading>
 
-        <p>
-          <strong>*1. Shipping Locations*</strong>
-        </p>
-        <p>
-          We currently ship to most locations within India through our trusted delivery partners. If your location is not serviceable, you will be notified at checkout.
-        </p>
+        <Text mb={4}>
+          <strong>Effective Date:</strong> [Insert Date]
+        </Text>
 
-        <p>
-          <strong>*2. Processing Time*</strong>
-        </p>
-        <p>
-          Orders are usually processed within 1–2 business days after receiving full payment. Orders placed on weekends or public holidays are processed on the next working day.
-        </p>
+        <Text mb={6}>
+          This Shipping Policy applies to all orders placed through
+          <strong> https://kpcircuitcity.com</strong> operated by
+          <strong> KP Circuit City Private Limited</strong>.
+        </Text>
 
-        <p>
-          <strong>*3. Shipping Time*</strong>
-        </p>
-        <p>
-          Once dispatched, orders typically arrive within 3–7 business days, depending on your location. Delays due to weather or courier issues will be communicated via email or SMS.
-        </p>
+        {/* 1 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>1. Shipping Coverage</Heading>
+          <Text>
+            We currently ship orders across India.
+            <br /><br />
+            International shipping is not available at this time.
+          </Text>
+        </Box>
 
-        <p>
-          <strong>*4. Shipping Charges*</strong>
-        </p>
-        <p>
-          Shipping charges (if applicable) are calculated at checkout. We may offer free shipping on specific promotions or order value thresholds.
-        </p>
+        {/* 2 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>2. Order Processing Time</Heading>
+          <Text>
+            Orders are processed within 1–2 business days after successful
+            payment confirmation.
+            <br /><br />
+            Orders are not processed on Sundays or public holidays.
+          </Text>
+        </Box>
 
-        <p>
-          <strong>*5. Order Tracking*</strong>
-        </p>
-        <p>
-          Once your order is shipped, a tracking link will be sent via email or SMS. You can use this to track your shipment.
-        </p>
+        {/* 3 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>3. Shipping Timeline</Heading>
+          <Text>
+            Delivery timelines typically range between 3–7 business days,
+            depending on the delivery location.
+            <br /><br />
+            Remote locations may require additional delivery time.
+          </Text>
+        </Box>
 
-        <p>
-          <strong>*6. Damaged or Missing Items*</strong>
-        </p>
-        <p>
-          If you receive a damaged, tampered, or missing item, please notify us within 24 hours of delivery with clear photos so that we can resolve the issue promptly.
-        </p>
+        {/* 4 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>4. Shipping Charges</Heading>
+          <Text>
+            Shipping charges, if applicable, will be calculated and displayed
+            at checkout before payment confirmation.
+          </Text>
+        </Box>
 
-        <p>
-          <strong>*7. Delayed Deliveries*</strong>
-        </p>
-        <p>
-          While we strive to deliver on time, delays caused by third-party logistics or unforeseen events are beyond our control. We will keep you informed of significant delays.
-        </p>
+        {/* 5 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>5. Payment Method</Heading>
+          <Text>
+            We offer prepaid orders only.
+            <br /><br />
+            Cash on Delivery (COD) is not available.
+          </Text>
+        </Box>
 
-        <p>
-          <strong>Contact Us</strong>
-        </p>
-        <p>
-          <a href="https://theearthnatural.in" className="blue" target="_blank">
-            theearthnatural.in
-          </a>
-        </p>
+        {/* 6 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>6. Tracking Information</Heading>
+          <Text>
+            Once your order is shipped, tracking details will be shared via
+            email or SMS to the registered contact details.
+          </Text>
+        </Box>
+
+        {/* 7 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>7. Delays & Liability</Heading>
+          <Text>
+            While we strive to ensure timely delivery, delays may occur due to:
+            <br /><br />
+            • Courier partner issues<br />
+            • Weather conditions<br />
+            • Government restrictions<br />
+            • Unforeseen logistical challenges
+            <br /><br />
+            KP Circuit City Private Limited shall not be held liable for delays
+            caused by third-party logistics providers.
+          </Text>
+        </Box>
+
+        {/* 8 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>8. Incorrect Address</Heading>
+          <Text>
+            Customers are responsible for providing accurate shipping details.
+            <br /><br />
+            We are not responsible for delivery failures due to incorrect or
+            incomplete addresses provided at the time of order placement.
+          </Text>
+        </Box>
+
+        {/* 9 */}
+        <Box mb={6}>
+          <Heading size="md" mb={2}>9. Company Details</Heading>
+          <Text>
+            <strong>KP Circuit City Private Limited</strong><br />
+            Ground Floor, Shed No. H/161, Ved Industrial Park-2,<br />
+            B/H Shreenath Estate, Bhuwaldi Road,<br />
+            Kathwada GIDC, Kathwada,<br />
+            Ahmedabad, Gujarat – 382430<br /><br />
+            Contact: 8160334012<br />
+            Email: kpcircuitcity@gmail.com
+          </Text>
+        </Box>
+
       </Container>
     </main>
   );
 };
 
-export default Shipping;
+export default ShippingPolicy;
