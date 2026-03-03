@@ -34,6 +34,7 @@ import {
 import { DeleteIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { createOrder, getCart, removeFromCart } from "../actions/api";
+import { useNavigate } from "react-router-dom";
 
 /* -------------------- LOAD RAZORPAY SCRIPT -------------------- */
 function loadScript(src) {
@@ -58,6 +59,7 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
+  const navigate = useNavigate();
 
   const toast = useToast();
 
@@ -82,10 +84,29 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
   }, [isCartOpen]);
 
   /* -------------------- REMOVE ITEM -------------------- */
+  // const handleRemoveFromCart = async (productId) => {
+  //   try {
+  //     await removeFromCart(productId);
+  //     getCartData();
+  //   } catch (error) {
+  //     toast({
+  //       title: "Failed to remove item",
+  //       status: "error",
+  //       duration: 3000,
+  //       isClosable: true,
+  //     });
+  //   }
+  // };
   const handleRemoveFromCart = async (productId) => {
     try {
       await removeFromCart(productId);
-      getCartData();
+
+      // Refresh drawer cart
+      await getCartData();
+
+      // 🔥 Notify Header to update count
+      window.dispatchEvent(new Event("cartUpdated"));
+
     } catch (error) {
       toast({
         title: "Failed to remove item",
@@ -241,13 +262,27 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
                 <Text fontWeight="bold">₹ {cartTotal}</Text>
               </Flex>
 
-              <Button
+              {/* <Button
                 w="100%"
                 bg="black"
                 color="white"
                 borderRadius="full"
                 _hover={{ bg: "gray.800" }}
                 onClick={() => setOrderModalOpen(true)}
+                isDisabled={cartItems.length === 0}
+              >
+                Proceed to Checkout
+              </Button> */}
+              <Button
+                w="100%"
+                bg="black"
+                color="white"
+                borderRadius="full"
+                _hover={{ bg: "gray.800" }}
+                onClick={() => {
+                  setCartOpen(false);
+                  navigate("/checkout");
+                }}
                 isDisabled={cartItems.length === 0}
               >
                 Proceed to Checkout

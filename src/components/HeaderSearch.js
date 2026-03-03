@@ -8,9 +8,12 @@ import {
     Text,
     Spinner,
     Button,
+    InputGroup,
+    InputRightElement,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { searchProducts } from "../actions/api";
+import { SearchIcon } from "@chakra-ui/icons";
 
 const HeaderSearch = () => {
     const [query, setQuery] = useState("");
@@ -69,7 +72,7 @@ const HeaderSearch = () => {
 
     return (
         <Box position="relative" ref={containerRef} w="100%">
-            <Input
+            {/* <Input
                 placeholder="Search for products..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -83,7 +86,34 @@ const HeaderSearch = () => {
                 }}
                 borderRadius="full"
                 height="42px"
-            />
+            /> */}
+            <InputGroup>
+                <Input
+                    placeholder="Search for products..."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && redirectToProducts()}
+                    bg="gray.100"
+                    border="none"
+                    borderRadius="full"
+                    height="48px"
+                    px={6}
+                    fontSize="sm"
+                    // _focus={{
+                    //     bg: "white",
+                    //     boxShadow: "0 0 0 2px black",
+                    // }}
+                />
+
+                <InputRightElement height="100%" mr={1}>
+                    <SearchIcon
+                        cursor="pointer"
+                        color="gray.500"
+                        onClick={redirectToProducts}
+                        _hover={{ color: "black" }}
+                    />
+                </InputRightElement>
+            </InputGroup>
 
             {showDropdown && query.length > 1 && (
                 <Box

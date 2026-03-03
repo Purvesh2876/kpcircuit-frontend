@@ -247,3 +247,13 @@ export const getMyOrders = async (page = 1, limit = 5, search = "") => {
         throw error;
     }
 };
+
+export const getOrderById = async (id) => {
+    console.log("Fetching order with ID:", id);
+    try {
+        const response = await instance.get(`/order/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

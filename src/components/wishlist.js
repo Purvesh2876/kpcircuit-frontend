@@ -57,8 +57,8 @@ const WishlistDrawer = ({
     console.log('itemif', itemId);
     try {
       const response = await removeFromWishlist(itemId);
-      console.log('Response from removeFromCart:', response);
       getCartData();
+      window.dispatchEvent(new Event("wishlistUpdated"));
     } catch (error) {
       console.error('Error removing item from cart:', error);
     }

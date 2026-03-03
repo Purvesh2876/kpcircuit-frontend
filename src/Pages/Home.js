@@ -16,10 +16,10 @@ import {
   useToast,
   IconButton,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import cat1 from "../images/cat1.jpg"
 import cat2 from "../images/cat2.jpg"
-import slider1 from "../images/1.jpg";
+import slider1 from "../images/1.png";
 import slider2 from "../images/2.jpg";
 import slider3 from "../images/3.jpg";
 import Slider from "react-slick";
@@ -318,10 +318,16 @@ const Home = ({ }) => {
     autoplay: true,
     autoplaySpeed: 1000,
   };
+  const navigate = useNavigate();
+  const query = 'Rasp'
+  const shopNowToProducts = () => {
+    if (!query.trim()) return;
+    navigate(`/products?search=${query}`);
+  };
 
   return (
     <>
-      <Box overflowX="hidden" overflowY="hidden">
+      {/* <Box overflowX="hidden" overflowY="hidden">
         <Slider {...sliderSettings}>
           {posterPaths.map((path, index) => (
             <Fade
@@ -339,16 +345,151 @@ const Home = ({ }) => {
             </Fade>
           ))}
         </Slider>
+      </Box> */}
+      <Box px={{ base: 4, md: 12 }} mt={6}>
+        <Box
+          bg="#f5f5f5"
+          borderRadius="30px"
+          px={{ base: 6, md: 16 }}
+          py={{ base: 10, md: 20 }}
+          position="relative"
+          overflow="hidden"
+        >
+          <Flex
+            direction={{ base: "column", md: "row" }}
+            align="center"
+            justify="space-between"
+            gap={10}
+          >
+            {/* LEFT CONTENT */}
+            <Box flex="1">
+              <Text
+                fontSize={{ base: "3xl", md: "5xl" }}
+                fontWeight="700"
+                lineHeight="1.2"
+                mb={6}
+              >
+                Transform Your Tech,
+                <br />
+                Boost Digital Journey!
+              </Text>
+
+              <Text
+                color="gray.600"
+                fontSize="md"
+                maxW="420px"
+                mb={8}
+              >
+                From ultra-fast chargers to cutting-edge gaming accessories,
+                find everything you need to power your devices with style
+                and performance.
+              </Text>
+
+              <Button
+                bg="black"
+                color="white"
+                borderRadius="full"
+                px={8}
+                py={6}
+                _hover={{ bg: "gray.800" }}
+                onClick={shopNowToProducts}
+              >
+                Shop Now →
+              </Button>
+            </Box>
+
+            {/* RIGHT IMAGE */}
+            <Box flex="1" textAlign="center">
+              <Image
+                src={slider1}   // use your product image
+                maxH="420px"
+                mx="auto"
+              />
+            </Box>
+          </Flex>
+
+          {/* Background Big Faded Text */}
+          <Text
+            position="absolute"
+            bottom="10px"
+            left="50%"
+            transform="translateX(-50%)"
+            fontSize="150px"
+            fontWeight="800"
+            color="gray.200"
+            zIndex="0"
+            userSelect="none"
+            display={{ base: "none", md: "block" }}
+          >
+            KP
+          </Text>
+        </Box>
       </Box>
 
-      <Box id="featured-products" m={0}>
+      <Box px={{ base: 4, md: 12 }} mt={12}>
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          justify="space-between"
+          align="center"
+          bg="white"
+          borderRadius="20px"
+          py={8}
+          px={10}
+          boxShadow="0 10px 40px rgba(0,0,0,0.05)"
+          gap={8}
+        >
+          {[
+            {
+              title: "Superior Quality",
+              desc: "We give only the best. No compromises.",
+            },
+            {
+              title: "Fast & Free Shipping",
+              desc: "Enjoy free shipping on orders over ₹999",
+            },
+            {
+              title: "30-Day Returns",
+              desc: "Easy replacement within 30 days",
+            },
+            {
+              title: "24/7 Support",
+              desc: "Dedicated support team always available",
+            },
+          ].map((item, index) => (
+            <Box key={index} textAlign="center">
+              <Box
+                bg="gray.100"
+                borderRadius="full"
+                w="50px"
+                h="50px"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                mx="auto"
+                mb={4}
+              >
+                ✓
+              </Box>
+
+              <Text fontWeight="600" mb={1}>
+                {item.title}
+              </Text>
+
+              <Text fontSize="sm" color="gray.600">
+                {item.desc}
+              </Text>
+            </Box>
+          ))}
+        </Flex>
+      </Box>
+
+      {/* <Box id="featured-products" m={0}>
         <Stack
           direction="column"
           spacing={6}
           align="center"
           justify="center"
           mt={{ base: 8, md: 12 }}
-          // mb={{ base: 4, md: 8 }}
           px={4}
         >
           <Heading
@@ -361,64 +502,14 @@ const Home = ({ }) => {
             borderRadius="full"
             textAlign="center"
             fontFamily="'Quicksand', sans-serif"
-          // letterSpacing="wide"
           >
             Featured Products
           </Heading>
         </Stack>
 
         <Box width="80%" overflow="hidden" py={10} mx="auto">
-          {/* The Slider Component replaces SimpleGrid */}
           <Slider {...sliderSettings2}>
-            {/* {products.map((product) => (
-              <Box key={product._id} px={2} py={2}>
-                <Card
-                  shadow={"none"}
-                  maxW={["100%", "100%", "xs"]}
-                  width="244px"
-                  mx="auto"
-                >
-                  <CardBody p={0}
-                    boxShadow={"0px 0px 10px rgba(0, 0, 0, 0.1)"}>
-                    <Link
-                      to={{
-                        pathname: `/productdetails/${product._id}`,
-                        state: { product },
-                      }}
-                    >
-                      <Stack sx={{ objectFit: "contain" }}>
-                        <Image
-                          height="200px"
-                          width="244px"
-                          objectFit="cover"
-                          p={2}
-                          src={`http://localhost:5000/uploads${hoveredProductId === product._id ? product.images[1] : product.images[0]}`}
-                          onMouseOver={() => handleHover(product._id)}
-                          onMouseOut={handleHoverOut}
-                          alt={product.name}
-                        />
-                      </Stack>
-                    </Link>
-                    <Stack direction="column" display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                      <Text size="xs">
-                        {product.name}
-                        <Text textAlign={'center'} fontWeight={600} fontSize="xl" fontFamily="'Quicksand', sans-serif">
-                          ₹ {product.price}
-                        </Text>
-                      </Text>
-                      <Text textAlign={'center'} fontSize="xs" fontFamily="'Quicksand', sans-serif">
-                        MRP (Inc. of all taxes)
-                      </Text>
-                      <Flex mb={2} w={'90%'} justifyContent={'center'}>
-                        <Button w={'100%'} borderRadius={'50px'} onClick={() => addToWishlist(product._id)}>
-                          Add To Wishlist
-                        </Button>
-                      </Flex>
-                    </Stack>
-                  </CardBody>
-                </Card>
-              </Box>
-            ))} */}
+
             {products.map((product) => (
               <Box key={product._id} px={4}>
                 <Box
@@ -432,10 +523,9 @@ const Home = ({ }) => {
                   }}
                   transition="all 0.3s ease"
                 >
-                  {/* IMAGE SECTION */}
                   <Box position="relative" role="group">
                     <Image
-                      src={`/uploads${product.images[0]}`} // http://76.13.247.39:5000
+                      src={`http://localhost:5000/uploads${product.images[0]}`} // http://76.13.247.39:5000
                       h="240px"
                       w="100%"
                       objectFit="cover"
@@ -443,7 +533,6 @@ const Home = ({ }) => {
                       p={0}
                     />
 
-                    {/* Wishlist Icon (Smooth Hover) */}
                     <IconButton
                       icon={<FaHeart />}
                       aria-label="Wishlist"
@@ -466,9 +555,7 @@ const Home = ({ }) => {
                     />
                   </Box>
 
-                  {/* CONTENT */}
                   <Box p={5}>
-                    {/* Product Name */}
                     <Text
                       fontWeight="600"
                       fontSize="md"
@@ -478,7 +565,6 @@ const Home = ({ }) => {
                       {product.name}
                     </Text>
 
-                    {/* Price */}
                     <Text
                       fontWeight="bold"
                       fontSize="lg"
@@ -488,9 +574,7 @@ const Home = ({ }) => {
                       ₹ {product.price}
                     </Text>
 
-                    {/* Bottom Controls */}
                     <Flex gap={3}>
-                      {/* Quantity Selector */}
                       <Flex
                         border="1px solid #E2E8F0"
                         borderRadius="8px"
@@ -523,7 +607,6 @@ const Home = ({ }) => {
                       </Flex>
 
 
-                      {/* Add to Cart Button */}
                       <Button
                         bg="black"
                         color="white"
@@ -531,7 +614,6 @@ const Home = ({ }) => {
                         borderRadius="8px"
                         _hover={{ bg: "gray.800" }}
                         leftIcon={<FaShoppingCart />}
-                        // onClick={() => handleAddToCart(product._id, quantity)}
                         onClick={() =>
                           handleAddToCart(
                             product._id,
@@ -550,12 +632,175 @@ const Home = ({ }) => {
 
           </Slider>
         </Box>
-      </Box >
+      </Box > */}
+
+      <Box id="featured-products" px={{ base: 4, md: 12 }} mt={20}>
+
+        {/* SECTION HEADER */}
+        <Flex
+          justify="space-between"
+          align="center"
+          mb={12}
+          flexWrap="wrap"
+          gap={4}
+        >
+          <Box>
+            <Text fontSize="3xl" fontWeight="700">
+              Featured Products
+            </Text>
+            <Text color="gray.500" fontSize="sm">
+              Handpicked premium tech curated for you
+            </Text>
+          </Box>
+
+          <Link to="/products">
+            <Button
+              variant="outline"
+              borderRadius="full"
+              px={6}
+              _hover={{ bg: "black", color: "white" }}
+            >
+              View All →
+            </Button>
+          </Link>
+        </Flex>
+
+        {/* PRODUCTS GRID */}
+        <SimpleGrid
+          columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+          spacing={10}
+        >
+          {products.slice(0, 8).map((product) => (
+            <Box
+              key={product._id}
+              bg="white"
+              borderRadius="24px"
+              overflow="hidden"
+              transition="all 0.3s ease"
+              _hover={{
+                transform: "translateY(-2px)",
+                boxShadow: "0 20px 50px rgba(0,0,0,0.08)",
+              }}
+            >
+              {/* IMAGE */}
+              <Box position="relative" role="group">
+                <Link to={`/productdetails/${product._id}`}>
+                  <Image
+                    src={`/uploads${hoveredProductId === product._id
+                      ? product.images[1]
+                      : product.images[0]
+                      }`}
+                    onMouseOver={() => handleHover(product._id)}
+                    onMouseOut={handleHoverOut}
+                    h="260px"
+                    w="100%"
+                    objectFit="cover"
+                    bg="gray.50"
+                  // p={6}
+                  />
+                </Link>
+
+                {/* Wishlist */}
+                <IconButton
+                  icon={<FaHeart />}
+                  aria-label="wishlist"
+                  position="absolute"
+                  top="20px"
+                  right="20px"
+                  borderRadius="full"
+                  bg="white"
+                  boxShadow="md"
+                  size="sm"
+                  opacity={0}
+                  transform="translateY(-10px)"
+                  _groupHover={{
+                    opacity: 1,
+                    transform: "translateY(0)",
+                  }}
+                  transition="all 0.3s ease"
+                  _hover={{ bg: "gray.100" }}
+                  onClick={() => addToWishlist(product._id)}
+                />
+              </Box>
+
+              {/* CONTENT */}
+              <Box px={6} pb={6}>
+                <Text
+                  fontWeight="600"
+                  fontSize="md"
+                  mt={4}
+                  mb={2}
+                  noOfLines={1}
+                >
+                  {product.name}
+                </Text>
+
+                <Text fontWeight="bold" fontSize="lg" mb={4}>
+                  ₹ {product.price}
+                </Text>
+
+                {/* CONTROLS */}
+                <Flex gap={3}>
+                  {/* Quantity */}
+                  <Flex
+                    border="1px solid #E2E8F0"
+                    borderRadius="12px"
+                    align="center"
+                    justify="space-between"
+                    px={3}
+                    py={1}
+                    flex="1"
+                    bg="gray.50"
+                  >
+                    <Text
+                      cursor="pointer"
+                      fontWeight="bold"
+                      onClick={() => decreaseQty(product._id)}
+                    >
+                      −
+                    </Text>
+
+                    <Text fontWeight="500">
+                      {quantities[product._id] || 1}
+                    </Text>
+
+                    <Text
+                      cursor="pointer"
+                      fontWeight="bold"
+                      onClick={() => increaseQty(product._id)}
+                    >
+                      +
+                    </Text>
+                  </Flex>
+
+                  {/* Add Button */}
+                  <Button
+                    bg="black"
+                    color="white"
+                    flex="2"
+                    borderRadius="12px"
+                    _hover={{ bg: "gray.800" }}
+                    leftIcon={<FaShoppingCart />}
+                    onClick={() =>
+                      handleAddToCart(
+                        product._id,
+                        quantities[product._id] || 1
+                      )
+                    }
+                  >
+                    Add
+                  </Button>
+                </Flex>
+              </Box>
+            </Box>
+          ))}
+        </SimpleGrid>
+      </Box>
 
       {/* <br></br>
       <br></br> */}
       {/* //category */}
-      <Box bgColor={'gray.100'} mt={10} pb={10} pt={1}>
+      {/* <Box bgColor={'gray.100'} mt={10} pb={10} pt={1}>
         <Stack
           direction="column"
           spacing={6}
@@ -575,8 +820,7 @@ const Home = ({ }) => {
             borderRadius="full"
             textAlign="center"
             fontFamily="'Quicksand', sans-serif"
-          // letterSpacing="wide"
-          >
+           >
             All Categories
           </Heading>
         </Stack>
@@ -587,22 +831,6 @@ const Home = ({ }) => {
               {categories.map((category) => (
                 <React.Fragment key={category}>
                   <Link to={`/products/${encodeURIComponent(category.name)}`} display='flex' justifyContent={'center'} alignItems={'center'}>
-                    {/* <Card
-                      height="100%"
-                      width="100%" shadow={"none"}
-                    >
-                      <CardBody p={0} display={'flex'} justifyContent={'center'} height={'100%'} bgColor={categoryBg}>
-                        <Box maxW={["100%", "100%", "100%"]} >
-                          <Image
-                            // height="100%"
-                            borderRadius={'25px'}
-                            width="100%"
-                            objectFit="contain"
-                            src={`http://localhost:5000/uploads${category.image}`}
-                          />
-                        </Box>
-                      </CardBody>
-                    </Card> */}
                     <Card
                       shadow={"none"}
                       borderRadius={'10px'}
@@ -628,8 +856,7 @@ const Home = ({ }) => {
                               borderRadius={'10px'}
                               m={4}
                               border="1px solid #cbcbcbff"
-                              // boxShadow={"0px 0px 10px rgba(0, 0, 0, 0.1)"}
-                              src={`/uploads${category.image}`} // http://76.13.247.39:5000
+                              src={`http://localhost:5000/uploads${category.image}`} // http://76.13.247.39:5000
                               onMouseOver={() => handleHover(category._id)}
                               onMouseOut={handleHoverOut}
                               alt={category.name}
@@ -649,10 +876,148 @@ const Home = ({ }) => {
             </SimpleGrid>
           </Stack>
         </Stack>
+      </Box> */}
+
+      <Box px={{ base: 4, md: 12 }} mt={24}>
+
+        {/* SECTION HEADER */}
+        <Flex
+          justify="space-between"
+          align="center"
+          mb={12}
+          flexWrap="wrap"
+          gap={4}
+        >
+          <Box>
+            <Text fontSize="3xl" fontWeight="700">
+              Shop By Category
+            </Text>
+            <Text color="gray.500" fontSize="sm">
+              Explore our wide range of premium collections
+            </Text>
+          </Box>
+
+          <Link to="/products">
+            <Button
+              variant="outline"
+              borderRadius="full"
+              px={6}
+              _hover={{ bg: "black", color: "white" }}
+            >
+              View All →
+            </Button>
+          </Link>
+        </Flex>
+
+        {/* DESKTOP GRID */}
+        <Box display={{ base: "none", md: "block" }}>
+          <SimpleGrid columns={{ md: 3, lg: 4 }} spacing={8}>
+            {categories.map((category) => (
+              <Link
+                key={category._id}
+                to={`/category/${category._id}`}
+              >
+                <Box
+                  position="relative"
+                  borderRadius="28px"
+                  overflow="hidden"
+                  cursor="pointer"
+                  role="group"
+                  h="260px"
+                >
+                  <Image
+                    src={`/uploads${category.image}`}
+                    w="100%"
+                    h="100%"
+                    objectFit="cover"
+                    transition="all 0.5s ease"
+                    _groupHover={{
+                      transform: "scale(1.08)",
+                    }}
+                  />
+
+                  {/* Dark Overlay */}
+                  <Box
+                    position="absolute"
+                    inset="0"
+                    bg="rgba(0,0,0,0.35)"
+                    transition="all 0.3s ease"
+                    _groupHover={{
+                      bg: "rgba(0,0,0,0.55)",
+                    }}
+                  />
+
+                  {/* Text */}
+                  <Box
+                    position="absolute"
+                    bottom="30px"
+                    left="30px"
+                    color="white"
+                  >
+                    <Text fontSize="xl" fontWeight="700">
+                      {category.name}
+                    </Text>
+                    <Text fontSize="sm" opacity="0.8">
+                      Explore Now →
+                    </Text>
+                  </Box>
+                </Box>
+              </Link>
+            ))}
+          </SimpleGrid>
+        </Box>
+
+        {/* MOBILE SLIDER */}
+        <Box display={{ base: "block", md: "none" }}>
+          <Box overflowX="auto" whiteSpace="nowrap" pb={4}>
+            <Flex gap={4}>
+              {categories.map((category) => (
+                <Link
+                  key={category._id}
+                  to={`/category/${category._id}`}
+                >
+                  <Box
+                    minW="240px"
+                    h="200px"
+                    borderRadius="24px"
+                    overflow="hidden"
+                    position="relative"
+                    role="group"
+                    flexShrink={0}
+                  >
+                    <Image
+                      src={`/uploads${category.image}`}
+                      w="100%"
+                      h="100%"
+                      objectFit="cover"
+                    />
+
+                    <Box
+                      position="absolute"
+                      inset="0"
+                      bg="rgba(0,0,0,0.4)"
+                    />
+
+                    <Box
+                      position="absolute"
+                      bottom="20px"
+                      left="20px"
+                      color="white"
+                    >
+                      <Text fontWeight="600">
+                        {category.name}
+                      </Text>
+                    </Box>
+                  </Box>
+                </Link>
+              ))}
+            </Flex>
+          </Box>
+        </Box>
+
       </Box>
 
-      {/* All Products */}
-      <Box mt={10} pb={10} pt={1}>
+      {/* <Box mt={10} pb={10} pt={1}>
         <Stack
           direction="column"
           spacing={6}
@@ -672,7 +1037,6 @@ const Home = ({ }) => {
             borderRadius="full"
             textAlign="center"
             fontFamily="'Quicksand', sans-serif"
-          // letterSpacing="wide"
           >
             All Products
           </Heading>
@@ -680,55 +1044,6 @@ const Home = ({ }) => {
 
         <Stack spacing={4} align="center" justify="center" marginTop={2}>
           <SimpleGrid columns={[1, 2, 2, 4]} spacing={8} alignItems="stretch">
-            {/* {allProducts.map((product) => (
-              <Card
-                shadow={"none"}
-                maxW={["100%", "100%", "xs"]}
-                // height="366px"
-                width="244px"
-              >
-                <CardBody p={0} borderRadius={'25px'} boxShadow={"0px 0px 10px rgba(0, 0, 0, 0.1)"}>
-                  <Link
-                    to={{
-                      pathname: `/productdetails/${product._id}`,
-                      state: { product },
-                    }}
-                    key={product._id}
-                  >
-                    <Stack sx={{ objectFit: "contain" }}>
-                      <Image
-                        height="200px"
-                        width="244px"
-                        p={4}
-                        objectFit="cover"
-                        borderRadius={'25px'}
-                        // boxShadow={"0px 0px 10px rgba(0, 0, 0, 0.1)"}
-                        src={`http://localhost:5000/uploads${hoveredProductId === product._id ? product.images[1] : product.images[0]}`}
-                        onMouseOver={() => handleHover(product._id)}
-                        onMouseOut={handleHoverOut}
-                        alt={product.name}
-                      />
-                    </Stack>
-                  </Link>
-                  <Stack direction="column" display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                    <Text size="xs">
-                      {product.name}
-                      <Text textAlign={'center'} fontWeight={600} fontSize="xl" fontFamily="'Quicksand', sans-serif">
-                        ₹ {product.price}
-                      </Text>
-                    </Text>
-                    <Text textAlign={'center'} fontSize="xs" fontFamily="'Quicksand', sans-serif">
-                      MRP (Inc. of all taxes)
-                    </Text>
-                    <Flex mb={2} w={'90%'} justifyContent={'center'}>
-                      <Button w={'100%'} borderRadius={'50px'} onClick={() => addToWishlist(product._id)}>
-                        Add To Wishlist
-                      </Button>
-                    </Flex>
-                  </Stack>
-                </CardBody>
-              </Card>
-            ))} */}
             {allProducts.map((product) => (
               <Box key={product._id}>
                 <Box
@@ -744,7 +1059,6 @@ const Home = ({ }) => {
                   }}
                   transition="all 0.3s ease"
                 >
-                  {/* IMAGE SECTION */}
                   <Box position="relative" role="group">
                     <Link to={`/productdetails/${product._id}`}>
                       <Image
@@ -752,8 +1066,7 @@ const Home = ({ }) => {
                         w="100%"
                         objectFit="cover"
                         bg="gray.50"
-                        // p={4}
-                        src={`/uploads${hoveredProductId === product._id
+                        src={`http://localhost:5000/uploads${hoveredProductId === product._id
                           ? product.images[1]
                           : product.images[0]
                           }`} // http://76.13.247.39:5000
@@ -763,7 +1076,6 @@ const Home = ({ }) => {
                       />
                     </Link>
 
-                    {/* Wishlist Hover Icon */}
                     <IconButton
                       icon={<FaHeart />}
                       aria-label="Wishlist"
@@ -786,7 +1098,6 @@ const Home = ({ }) => {
                     />
                   </Box>
 
-                  {/* CONTENT */}
                   <Box p={5}>
                     <Text
                       fontWeight="600"
@@ -806,9 +1117,7 @@ const Home = ({ }) => {
                       ₹ {product.price}
                     </Text>
 
-                    {/* Bottom Controls */}
                     <Flex gap={3}>
-                      {/* Quantity Selector */}
                       <Flex
                         border="1px solid #E2E8F0"
                         borderRadius="8px"
@@ -840,7 +1149,6 @@ const Home = ({ }) => {
                         </Text>
                       </Flex>
 
-                      {/* Add To Cart */}
                       <Button
                         bg="black"
                         color="white"
@@ -878,7 +1186,182 @@ const Home = ({ }) => {
             </Button>
           </Link>
         </Flex>
-      </Box >
+      </Box > */}
+
+      <Box px={{ base: 4, md: 12 }} mt={28} pb={20}>
+
+        {/* SECTION HEADER */}
+        <Flex
+          justify="space-between"
+          align="center"
+          mb={14}
+          flexWrap="wrap"
+          gap={4}
+        >
+          <Box>
+            <Text fontSize="3xl" fontWeight="700">
+              All Products
+            </Text>
+            <Text color="gray.500" fontSize="sm">
+              Discover our complete collection
+            </Text>
+          </Box>
+
+          <Link to="/products">
+            <Button
+              borderRadius="full"
+              px={6}
+              bg="black"
+              color="white"
+              _hover={{ bg: "gray.800" }}
+            >
+              View More →
+            </Button>
+          </Link>
+        </Flex>
+
+        {/* PRODUCTS GRID */}
+        <SimpleGrid
+          columns={{ base: 1, sm: 2, md: 3, lg: 4 }}
+          spacing={10}
+        >
+          {allProducts.map((product) => (
+            <Box
+              key={product._id}
+              bg="white"
+              borderRadius="24px"
+              overflow="hidden"
+              border="1px solid #f1f1f1"
+              transition="all 0.3s ease"
+              _hover={{
+                transform: "translateY(-6px)",
+                boxShadow: "0 18px 40px rgba(0,0,0,0.08)",
+              }}
+            >
+              {/* IMAGE */}
+              <Box position="relative" role="group">
+                <Link to={`/productdetails/${product._id}`}>
+                  <Image
+                    src={`/uploads${hoveredProductId === product._id
+                      ? product.images[1]
+                      : product.images[0]
+                      }`}
+                    onMouseOver={() => handleHover(product._id)}
+                    onMouseOut={handleHoverOut}
+                    h="240px"
+                    w="100%"
+                    objectFit="cover"
+                    bg="gray.50"
+                    p={6}
+                    transition="all 0.4s ease"
+                    _groupHover={{
+                      transform: "scale(1.05)",
+                    }}
+                  />
+                </Link>
+
+                {/* Wishlist */}
+                <IconButton
+                  icon={<FaHeart />}
+                  aria-label="wishlist"
+                  position="absolute"
+                  top="18px"
+                  right="18px"
+                  borderRadius="full"
+                  bg="white"
+                  boxShadow="md"
+                  size="sm"
+                  opacity={0}
+                  transform="translateY(-10px)"
+                  _groupHover={{
+                    opacity: 1,
+                    transform: "translateY(0)",
+                  }}
+                  transition="all 0.3s ease"
+                  _hover={{ bg: "gray.100" }}
+                  onClick={() => addToWishlist(product._id)}
+                />
+              </Box>
+
+              {/* CONTENT */}
+              <Box px={6} pb={6}>
+                <Text
+                  fontWeight="600"
+                  fontSize="md"
+                  mt={4}
+                  mb={2}
+                  noOfLines={1}
+                >
+                  {product.name}
+                </Text>
+
+                <Text
+                  fontWeight="700"
+                  fontSize="lg"
+                  mb={4}
+                  letterSpacing="0.5px"
+                >
+                  ₹ {product.price}
+                </Text>
+
+                {/* CONTROLS */}
+                <Flex gap={3}>
+                  {/* Quantity Selector */}
+                  <Flex
+                    border="1px solid #E2E8F0"
+                    borderRadius="12px"
+                    align="center"
+                    justify="space-between"
+                    px={3}
+                    py={1}
+                    flex="1"
+                    bg="gray.50"
+                  >
+                    <Text
+                      cursor="pointer"
+                      fontWeight="bold"
+                      onClick={() => decreaseQty(product._id)}
+                    >
+                      −
+                    </Text>
+
+                    <Text fontWeight="500">
+                      {quantities[product._id] || 1}
+                    </Text>
+
+                    <Text
+                      cursor="pointer"
+                      fontWeight="bold"
+                      onClick={() => increaseQty(product._id)}
+                    >
+                      +
+                    </Text>
+                  </Flex>
+
+                  {/* Add Button */}
+                  <Button
+                    bg="black"
+                    color="white"
+                    flex="2"
+                    borderRadius="12px"
+                    _hover={{ bg: "gray.800" }}
+                    leftIcon={<FaShoppingCart />}
+                    onClick={() =>
+                      handleAddToCart(
+                        product._id,
+                        quantities[product._id] || 1
+                      )
+                    }
+                  >
+                    Add
+                  </Button>
+                </Flex>
+              </Box>
+            </Box>
+          ))}
+        </SimpleGrid>
+      </Box>
+
     </>
   );
 };

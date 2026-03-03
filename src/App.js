@@ -22,6 +22,8 @@ import SubCategoryList from './Pages/subcategoryList.js';
 import SubCategoryProducts from './Pages/subcategoryProducts.js';
 import AllProducts from './Pages/allProducts.js';
 import MyOrders from './Pages/MyOrders.js';
+import CheckoutPage from './Pages/checkout.js';
+import OrderSuccessPage from './Pages/OrderSuccessPage.js';
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/productdetails/:productId" element={<ProductDetails />} />
           <Route path="/collection" element={<Collection />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/order-success/:id" element={<OrderSuccessPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
