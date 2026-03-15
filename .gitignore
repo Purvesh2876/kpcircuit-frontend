@@ -1,6 +1,7 @@
 /node_modules
 # ignore .env and build files
 .env
+/.env
 # ignore build files
 /dist
 /build

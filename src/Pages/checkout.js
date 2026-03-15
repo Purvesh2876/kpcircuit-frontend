@@ -123,6 +123,7 @@ const CheckoutPage = () => {
 
     /* -------------------- HANDLE PAYMENT -------------------- */
     const handlePayment = async () => {
+        if (processing) return;
         if (!validateForm()) return;
         if (cartItems.length === 0) return;
 
@@ -206,6 +207,14 @@ const CheckoutPage = () => {
 
             const paymentObject = new window.Razorpay(options);
             paymentObject.open();
+
+            paymentObject.on("payment.failed", function () {
+                toast({
+                    title: "Payment Failed",
+                    status: "error",
+                    duration: 4000
+                });
+            });
 
         } catch (error) {
             toast({

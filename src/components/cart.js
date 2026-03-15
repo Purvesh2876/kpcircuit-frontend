@@ -131,8 +131,13 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
     const sdkLoaded = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
+    // if (!sdkLoaded) {
+    //   toast({ title: "Payment SDK failed to load", status: "error" });
+    //   return;
+    // }
     if (!sdkLoaded) {
       toast({ title: "Payment SDK failed to load", status: "error" });
+      setProcessing(false);
       return;
     }
 
