@@ -137,7 +137,7 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
     // }
     if (!sdkLoaded) {
       toast({ title: "Payment SDK failed to load", status: "error" });
-      setProcessing(false);
+      // setProcessing(false);
       return;
     }
 
