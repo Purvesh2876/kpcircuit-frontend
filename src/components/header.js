@@ -315,6 +315,7 @@ const Header = () => {
               {isLoggedIn ? (
                 <>
                   <MenuItem onClick={() => navigate("/myorders")}>My Orders</MenuItem>
+                  <MenuItem onClick={() => navigate("/my-returns")}>My Returns</MenuItem>
                   <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </>

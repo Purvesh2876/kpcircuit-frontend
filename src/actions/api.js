@@ -257,3 +257,46 @@ export const getOrderById = async (id) => {
         throw error;
     }
 };
+
+export const createReturnRequest = async (returnData) => {
+    try {
+        const formData = new FormData();
+        formData.append("orderId", returnData.orderId);
+        formData.append("type", returnData.type);
+        formData.append("reason", returnData.reason);
+        formData.append("items", JSON.stringify(returnData.items));
+
+        if (returnData.images) {
+            for (let i = 0; i < returnData.images.length; i++) {
+                formData.append("images", returnData.images[i]);
+            }
+        }
+
+        const response = await instance.post("/returns", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getMyReturns = async () => {
+    try {
+        const response = await instance.get("/returns");
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const getReturnById = async (id) => {
+    try {
+        const response = await instance.get(`/returns/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

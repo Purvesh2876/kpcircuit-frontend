@@ -33,10 +33,11 @@ import {
     MdSearch,
 } from "react-icons/md";
 import { Link as RouterLink } from "react-router-dom";
-import { getMyOrders } from "../actions/api";
+import { getMyOrders, getMyReturns } from "../actions/api";
 
 const MyOrders = () => {
     const [orders, setOrders] = useState([]);
+    const [returnsMap, setReturnsMap] = useState({});
     const [loading, setLoading] = useState(true);
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [totalPages, setTotalPages] = useState(1);
@@ -47,18 +48,26 @@ const MyOrders = () => {
     const ordersPerPage = 5;
 
     useEffect(() => {
-        const fetchOrders = async () => {
+        const fetchData = async () => {
             setLoading(true);
             try {
-                const { data } = await getMyOrders(
-                    currentPage,
-                    ordersPerPage,
-                    searchTerm
-                );
+                const [ordersData, returnsData] = await Promise.all([
+                    getMyOrders(currentPage, ordersPerPage, searchTerm),
+                    getMyReturns()
+                ]);
 
-                if (data.success) {
-                    setOrders(data.orders);
-                    setTotalPages(data.pagination.totalPages);
+                if (ordersData.data.success) {
+                    setOrders(ordersData.data.orders);
+                    setTotalPages(ordersData.data.pagination.totalPages);
+                }
+
+                if (returnsData.success) {
+                    const rMap = {};
+                    returnsData.data.forEach(r => {
+                        const orderId = r.order?._id || r.order;
+                        rMap[orderId] = r._id;
+                    });
+                    setReturnsMap(rMap);
                 }
             } catch (err) {
                 console.error(err);
@@ -67,7 +76,7 @@ const MyOrders = () => {
             }
         };
 
-        const debounce = setTimeout(fetchOrders, 400);
+        const debounce = setTimeout(fetchData, 400);
         return () => clearTimeout(debounce);
     }, [currentPage, searchTerm]);
 
@@ -86,6 +95,21 @@ const MyOrders = () => {
             default:
                 return "gray";
         }
+    };
+
+    const isReturnWindowOpen = (order) => {
+        const deliveredStatus = order.statusHistory.find(s => s.status === 'delivered');
+        if (!deliveredStatus) return false;
+
+        const deliveryDate = new Date(deliveredStatus.timestamp);
+        const currentDate = new Date();
+
+        return order.items.some(item => {
+            if (!item.product?.isReturnable) return false;
+            const returnWindow = item.product.returnWindowDays || 0;
+            const daysSinceDelivery = (currentDate - deliveryDate) / (1000 * 60 * 60 * 24);
+            return daysSinceDelivery <= returnWindow;
+        });
     };
 
     if (loading)
@@ -200,6 +224,36 @@ const MyOrders = () => {
                                 ))}
                             </Stack>
                         </Box>
+
+                        {/* Return/Replacement Button Section */}
+                        {order.orderStatus === "delivered" && !order.isReplacement && (
+                            <Flex
+                                borderTopWidth="1px"
+                                p={4}
+                                justify="flex-end"
+                                align="center"
+                            >
+                                {returnsMap[order._id] ? (
+                                    <Button
+                                        as={RouterLink}
+                                        to={`/return-details/${returnsMap[order._id]}`}
+                                        size="sm"
+                                        colorScheme="purple"
+                                    >
+                                        View Return Status
+                                    </Button>
+                                ) : isReturnWindowOpen(order) ? (
+                                    <Button
+                                        as={RouterLink}
+                                        to={`/request-return/${order._id}`}
+                                        size="sm"
+                                        colorScheme="blue"
+                                    >
+                                        Request Return / Replacement
+                                    </Button>
+                                ) : null}
+                            </Flex>
+                        )}
                     </Box>
                 ))}
 

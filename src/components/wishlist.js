@@ -138,7 +138,12 @@ const WishlistDrawer = ({
         Authorization: `Bearer ${token}`,
       };
 
-      axios.post('http://76.13.247.39:5000/orders/checkout', data, { headers }).then(res => console.log(res)).catch(error => {
+      const config = {
+        headers,
+        withCredentials: true
+      };
+
+      axios.post(`${process.env.REACT_APP_API_URL}/orders/checkout`, data, config).then(res => console.log(res)).catch(error => {
         console.error(error);
       });
     }

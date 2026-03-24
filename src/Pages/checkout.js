@@ -176,7 +176,8 @@ const CheckoutPage = () => {
                     try {
                         const verifyResponse = await axios.post(
                             `${process.env.REACT_APP_API_URL}/order/verify`,
-                            response
+                            response,
+                            { withCredentials: true }
                         );
 
                         toast({

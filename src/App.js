@@ -22,6 +22,9 @@ import SubCategoryList from './Pages/subcategoryList.js';
 import SubCategoryProducts from './Pages/subcategoryProducts.js';
 import AllProducts from './Pages/allProducts.js';
 import MyOrders from './Pages/MyOrders.js';
+import RequestReturn from './Pages/RequestReturn.js';
+import MyReturns from './Pages/MyReturns.js';
+import ReturnDetails from './Pages/ReturnDetails.js';
 import CheckoutPage from './Pages/checkout.js';
 import OrderSuccessPage from './Pages/OrderSuccessPage.js';
 
@@ -42,6 +45,9 @@ function App() {
           <Route path="/refund" element={<Refund />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/myorders" element={<MyOrders />} />
+          <Route path="/my-returns" element={<MyReturns />} />
+          <Route path="/return-details/:id" element={<ReturnDetails />} />
+          <Route path="/request-return/:orderId" element={<RequestReturn />} />
           <Route path="/productdetails/:productId" element={<ProductDetails />} />
           <Route path="/collection" element={<Collection />} />
           <Route path="/checkout" element={<CheckoutPage />} />
