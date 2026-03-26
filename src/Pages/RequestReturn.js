@@ -225,17 +225,14 @@ const RequestReturn = () => {
                     />
                 </FormControl>
 
-                <FormControl isRequired>
+                <FormControl>
                     <FormLabel>Preferred Outcome</FormLabel>
-                    <Select value={type} onChange={(e) => setType(e.target.value)}>
-                        <option value="REPLACEMENT">Replacement</option>
-                        <option value="REFUND">Refund</option>
-                    </Select>
-                    {type === 'REPLACEMENT' && selectedItems.some(i => !i.isReplaceable) && (
-                        <Text color="red.500" fontSize="sm" mt={2}>
-                            Note: One or more selected items are not replaceable. If you proceed, a refund may be issued instead.
+                    <Box p={3} bg="blue.50" borderRadius="md" borderLeft="4px solid" borderColor="blue.500">
+                        <Text fontWeight="bold" color="blue.700">REPLACEMENT</Text>
+                        <Text fontSize="xs" color="blue.600">
+                            Note: We primarily offer replacements. If the item is out of stock after we collect your return, a refund will be processed automatically.
                         </Text>
-                    )}
+                    </Box>
                 </FormControl>
 
                 <FormControl>

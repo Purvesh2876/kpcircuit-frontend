@@ -160,7 +160,7 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
       const data = await createOrder(orderData);
 
       const options = {
-        key: "rzp_test_S0jaQgN2TWpblg",
+        key: process.env.REACT_APP_RAZORPAY_KEY_ID,
         amount: data.razorpayOrder.amount,
         currency: "INR",
         name: "Nisarg Ecomm",

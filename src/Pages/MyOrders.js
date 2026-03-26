@@ -92,6 +92,12 @@ const MyOrders = () => {
                 return "green";
             case "cancelled":
                 return "red";
+            case "refunded":
+                return "purple";
+            case "returned":
+                return "teal";
+            case "replaced":
+                return "cyan";
             default:
                 return "gray";
         }
