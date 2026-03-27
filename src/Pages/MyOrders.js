@@ -253,7 +253,7 @@ const MyOrders = () => {
                                         as={RouterLink}
                                         to={`/request-return/${order._id}`}
                                         size="sm"
-                                        colorScheme="blue"
+                                        colorScheme="brand"
                                     >
                                         Request Return / Replacement
                                     </Button>
@@ -271,7 +271,7 @@ const MyOrders = () => {
                                 key={i}
                                 size="sm"
                                 onClick={() => setCurrentPage(i + 1)}
-                                colorScheme={currentPage === i + 1 ? "blue" : "gray"}
+                                colorScheme={currentPage === i + 1 ? "brand" : "gray"}
                             >
                                 {i + 1}
                             </Button>

@@ -33,7 +33,7 @@ import {
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import axios from "axios";
-import { createOrder, getCart, removeFromCart } from "../actions/api";
+import { createOrder, getCart, removeFromCart, updateCartItem } from "../actions/api";
 import { useNavigate } from "react-router-dom";
 
 /* -------------------- LOAD RAZORPAY SCRIPT -------------------- */
@@ -117,6 +117,27 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
     }
   };
 
+  /* -------------------- UPDATE QUANTITY -------------------- */
+  const handleUpdateQuantity = async (productId, currentQty, delta) => {
+    const newQty = currentQty + delta;
+    if (newQty < 1) {
+      handleRemoveFromCart(productId);
+      return;
+    }
+
+    try {
+      await updateCartItem(productId, newQty);
+      await getCartData();
+      window.dispatchEvent(new Event("cartUpdated"));
+    } catch (error) {
+      toast({
+        title: "Failed to update quantity",
+        status: "error",
+        duration: 2000,
+      });
+    }
+  };
+
   /* -------------------- CHECKOUT -------------------- */
   const handleDone = async () => {
     if (!name || !phoneNumber || !email || !address || !city || !pincode) {
@@ -163,7 +184,7 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
         key: process.env.REACT_APP_RAZORPAY_KEY_ID,
         amount: data.razorpayOrder.amount,
         currency: "INR",
-        name: "Nisarg Ecomm",
+        name: "KP Circuit City",
         order_id: data.razorpayOrder.id,
         handler: async function (response) {
           try {
@@ -189,7 +210,7 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
           }
         },
         prefill: { name, email, contact: phoneNumber },
-        theme: { color: "#000000" },
+        theme: { color: "#004d3d" },
       };
 
       const paymentObject = new window.Razorpay(options);
@@ -240,14 +261,32 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
                       objectFit="cover"
                     />
                     <Stack flex="1" spacing={1}>
-                      <Text fontWeight="600">
+                      <Text fontWeight="600" noOfLines={1}>
                         {item.product.name}
                       </Text>
-                      <Text fontSize="sm">
-                        Qty: {item.quantity}
-                      </Text>
-                      <Text fontWeight="bold">
-                        ₹ {item.priceAtAdd}
+                      <HStack spacing={3} mt={1}>
+                        <Button
+                          size="xs"
+                          borderRadius="full"
+                          variant="outline"
+                          onClick={() => handleUpdateQuantity(item.product._id, item.quantity, -1)}
+                        >
+                          −
+                        </Button>
+                        <Text fontSize="sm" fontWeight="600">
+                          {item.quantity}
+                        </Text>
+                        <Button
+                          size="xs"
+                          borderRadius="full"
+                          variant="outline"
+                          onClick={() => handleUpdateQuantity(item.product._id, item.quantity, 1)}
+                        >
+                          +
+                        </Button>
+                      </HStack>
+                      <Text fontWeight="bold" mt={1}>
+                        ₹ {item.priceAtAdd * item.quantity}
                       </Text>
                     </Stack>
                     <DeleteIcon
@@ -281,10 +320,10 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
               </Button> */}
               <Button
                 w="100%"
-                bg="black"
+                bg="brand.500"
                 color="white"
                 borderRadius="full"
-                _hover={{ bg: "gray.800" }}
+                _hover={{ bg: "brand.800" }}
                 onClick={() => {
                   setCartOpen(false);
                   navigate("/checkout");
@@ -363,7 +402,7 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
           <ModalFooter>
             {currentStep === 0 ? (
               <Button
-                bg="black"
+                bg="brand.500"
                 color="white"
                 borderRadius="full"
                 onClick={() => setCurrentStep(1)}
@@ -373,7 +412,7 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
               </Button>
             ) : (
               <Button
-                bg="black"
+                bg="brand.500"
                 color="white"
                 borderRadius="full"
                 onClick={handleDone}

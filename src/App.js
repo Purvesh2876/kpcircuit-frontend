@@ -16,6 +16,7 @@ import Login from './Pages/Login.js';
 import Otp from './Pages/Otp.js';
 import Profile from './Pages/Profile.js';
 import Testing from './Pages/Testing.js';
+import ResetPassword from './Pages/ResetPassword.js';
 import Shipping from './Pages/Shipping.js';
 import Contact from './Pages/Contact.js';
 import SubCategoryList from './Pages/subcategoryList.js';
@@ -56,6 +57,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/otp" element={<Otp />} />
+          <Route path="/password/reset/:token" element={<ResetPassword />} />
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/products" element={<AllProducts />} />

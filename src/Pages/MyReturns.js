@@ -130,7 +130,7 @@ const MyReturns = () => {
                                     as={RouterLink}
                                     to={`/return-details/${req._id}`}
                                     size="sm"
-                                    colorScheme="blue"
+                                    colorScheme="brand"
                                 >
                                     Track Status
                                 </Button>

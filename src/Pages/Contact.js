@@ -29,7 +29,7 @@ const Contact = () => {
         <h2 style={{ fontWeight: "bold", marginBottom: "1rem" }}>Contact Us</h2>
 
         <p>
-          <strong>Business Name:</strong> The Earth Natural
+          <strong fontWeights={600}>Business Name:</strong> KP Circuit City
         </p>
         <p>
           <strong>Registered Address:</strong> 123, Example Street, Ahmedabad, Gujarat, India
@@ -73,7 +73,7 @@ const Contact = () => {
               onChange={handleChange}
               isRequired
             />
-            <Button type="submit" colorScheme="blue">
+            <Button type="submit" colorScheme="brand">
               Submit
             </Button>
           </Stack>

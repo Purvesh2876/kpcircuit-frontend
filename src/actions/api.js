@@ -79,6 +79,48 @@ export async function getSingleUser() {
     }
 }
 
+export async function updatePassword(oldPassword, newPassword) {
+    try {
+        const response = await instance.put("/auth/updatePassword", {
+            oldPassword,
+            newPassword
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function forgotPassword(email) {
+    try {
+        const response = await instance.post("/auth/password/forgot", { email });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function resetPassword(token, password, confirmPassword) {
+    try {
+        const response = await instance.put(`/auth/password/reset/${token}`, {
+            password,
+            confirmPassword
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function deactivateAccount(password) {
+    try {
+        const response = await instance.put("/auth/deactivate", { password });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export async function getAllCategories() {
     try {
         const response = await instance.get("/categories");
@@ -144,6 +186,18 @@ export async function getCart() {
 export async function getCartTotal() {
     try {
         const response = await instance.get("/cart/total");
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function updateCartItem(productId, quantity) {
+    try {
+        const response = await instance.put("/cart/update", {
+            productId,
+            quantity
+        });
         return response.data;
     } catch (error) {
         throw error;

@@ -154,7 +154,7 @@ const SubCategoryProducts = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               bg="gray.50"
               borderColor="gray.200"
-              _focus={{ borderColor: "black", boxShadow: "none" }}
+              _focus={{ borderColor: "brand.500", boxShadow: "none" }}
             />
           </InputGroup>
         </Box>
@@ -219,8 +219,8 @@ const SubCategoryProducts = () => {
                         w="full"
                         borderRadius="full"
                         size="sm"
-                        colorScheme="blackAlpha"
-                        bg="black"
+                        colorScheme="brand"
+                        bg="brand.500"
                         color="white"
                         onClick={() => addToWishlist(product._id)}
                       >

@@ -78,7 +78,7 @@ const OrderSuccessPage = () => {
     });
 
     return (
-        <Box bg="#f5f1eb" minH="100vh" py={{ base: 10, md: 16 }} px={6}>
+        <Box bg="gray.50" minH="100vh" py={{ base: 10, md: 16 }} px={6}>
             <Box maxW="1000px" mx="auto">
 
                 {/* Confirmation Section */}
@@ -223,10 +223,10 @@ const OrderSuccessPage = () => {
                         mt={10}
                         w="100%"
                         h="50px"
-                        bg="#8b2c24"
+                        bg="brand.500"
                         color="white"
                         borderRadius="4px"
-                        _hover={{ bg: "#74231d" }}
+                        _hover={{ bg: "brand.800" }}
                         onClick={() => navigate("/")}
                     >
                         Continue Shopping

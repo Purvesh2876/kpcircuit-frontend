@@ -409,7 +409,7 @@ const Collection = ({ }) => {
                       <Button
                         key={index}
                         size={"xs"}
-                        colorScheme="black"
+                        colorScheme="brand"
                         borderColor={"#e8e8e1"}
                         variant="outline"
                         rounded="none"

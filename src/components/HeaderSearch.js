@@ -89,6 +89,9 @@ const HeaderSearch = () => {
             /> */}
             <InputGroup>
                 <Input
+                    type="text"
+                    name="search-query"
+                    autoComplete="off"
                     placeholder="Search for products..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -99,10 +102,6 @@ const HeaderSearch = () => {
                     height="48px"
                     px={6}
                     fontSize="sm"
-                    // _focus={{
-                    //     bg: "white",
-                    //     boxShadow: "0 0 0 2px black",
-                    // }}
                 />
 
                 <InputRightElement height="100%" mr={1}>
@@ -110,7 +109,7 @@ const HeaderSearch = () => {
                         cursor="pointer"
                         color="gray.500"
                         onClick={redirectToProducts}
-                        _hover={{ color: "black" }}
+                        _hover={{ color: "brand.500" }}
                     />
                 </InputRightElement>
             </InputGroup>
@@ -168,9 +167,9 @@ const HeaderSearch = () => {
                                 <Button
                                     size="sm"
                                     width="100%"
-                                    bg="black"
+                                    bg="brand.500"
                                     color="white"
-                                    _hover={{ bg: "gray.800" }}
+                                    _hover={{ bg: "brand.800" }}
                                     onClick={redirectToProducts}
                                 >
                                     Show more results

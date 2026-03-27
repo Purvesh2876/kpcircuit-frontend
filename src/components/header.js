@@ -23,7 +23,7 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { FaUser, FaShoppingCart, FaRegHeart } from "react-icons/fa";
 
-import logo from "./logo.png";
+import logoNew from "../images/logo_new.png";
 import ShoppingCartDrawer from "../components/cart";
 import WishlistDrawer from "./wishlist";
 import HeaderSearch from "../components/HeaderSearch";
@@ -92,168 +92,12 @@ const Header = () => {
 
   const isMobile = window.innerWidth <= 768;
 
-  // return (
-  //   <Box position="sticky" top="0" bg="white" zIndex="1000" borderBottom="1px solid #eee">
-
-  //     {/* MAIN HEADER */}
-  //     <Flex
-  //       px={{ base: 4, md: 8 }}   // 🔥 Reduced side spacing
-  //       height={{ base: "70px", md: "85px" }}
-  //       align="center"
-  //       justify="space-between"
-  //     >
-  //       {/* LEFT */}
-  //       <HStack spacing={4}>
-  //         <IconButton
-  //           icon={<HamburgerIcon />}
-  //           variant="ghost"
-  //           onClick={handleToggle}
-  //         />
-  //         <Box
-  //           fontWeight="600"
-  //           fontSize={{ base: "lg", md: "xl" }}
-  //           cursor="pointer"
-  //           onClick={() => navigate("/")}
-  //         >
-  //           KP {isMobile ? <br /> : " CIRCUIT CITY"}
-  //         </Box>
-  //       </HStack>
-  //       {/* DESKTOP SEARCH */}
-  //       <Box
-  //         display={{ base: "none", md: "flex" }}
-  //         flex="1"
-  //         justifyContent="center"
-  //         px={6}
-  //       >
-  //         <Box w="100%">
-  //           <HeaderSearch />
-  //         </Box>
-  //       </Box>
-
-  //       {/* RIGHT */}
-  //       <HStack spacing={3}>
-  //         {/* USER */}
-  //         <Menu>
-  //           <MenuButton
-  //             as={IconButton}
-  //             icon={<FaUser />}
-  //             variant="ghost"
-  //           />
-  //           <MenuList>
-  //             {isLoggedIn ? (
-  //               <>
-  //                 <MenuItem onClick={() => navigate("/myorders")}>
-  //                   My Orders
-  //                 </MenuItem>
-  //                 <MenuItem onClick={() => navigate("/profile")}>
-  //                   Profile
-  //                 </MenuItem>
-  //                 <MenuItem onClick={handleLogout}>
-  //                   Logout
-  //                 </MenuItem>
-  //               </>
-  //             ) : (
-  //               <MenuItem onClick={() => navigate("/login")}>
-  //                 Login
-  //               </MenuItem>
-  //             )}
-  //           </MenuList>
-  //         </Menu>
-
-  //         {/* HEART */}
-  //         <Box position="relative">
-  //           <IconButton
-  //             icon={<FaRegHeart />}   // 🔥 Red heart
-  //             variant="ghost"
-  //             onClick={() => setWishlistOpen(!isWishlistOpen)}
-  //           />
-  //           {wishlistCount > 0 && (
-  //             <Box
-  //               position="absolute"
-  //               top="0"
-  //               right="0"
-  //               bg="red.500"
-  //               color="white"        // 🔥 White text
-  //               borderRadius="full"
-  //               fontSize="10px"
-  //               px="6px"
-  //               minW="18px"
-  //               textAlign="center"
-  //               fontWeight="bold"
-  //             >
-  //               {wishlistCount}
-  //             </Box>
-  //           )}
-  //         </Box>
-
-  //         {/* CART */}
-  //         <Box position="relative">
-  //           <IconButton
-  //             icon={<FaShoppingCart />}
-  //             variant="ghost"
-  //             onClick={() => setCartOpen(!isCartOpen)}
-  //           />
-  //           {cartCount > 0 && (
-  //             <Box
-  //               position="absolute"
-  //               top="0"
-  //               right="0"
-  //               bg="red.500"
-  //               color="white"
-  //               borderRadius="full"
-  //               fontSize="10px"
-  //               px="6px"
-  //               minW="18px"
-  //               textAlign="center"
-  //               fontWeight="bold"
-  //             >
-  //               {cartCount}
-  //             </Box>
-  //           )}
-  //         </Box>
-  //       </HStack>
-  //     </Flex>
-
-  //     {/* MOBILE SEARCH */}
-  //     <Box display={{ base: "block", md: "none" }} px={4} pb={3}>
-  //       <HeaderSearch />
-  //     </Box>
-
-  //     {/* DRAWER */}
-  //     <Drawer placement="left" onClose={handleToggle} isOpen={isOpen}>
-  //       <DrawerOverlay>
-  //         <DrawerContent>
-  //           <DrawerCloseButton />
-  //           <DrawerHeader>
-  //             <Img src={logo} width="120px" />
-  //           </DrawerHeader>
-  //           <Divider />
-  //           <DrawerBody>
-  //             <VStack align="left" spacing={4}>
-  //               <Text cursor="pointer" onClick={() => navigate("/")}>
-  //                 Featured Products
-  //               </Text>
-  //               <Divider />
-  //               <Text>All Categories</Text>
-  //               <Divider />
-  //               <Text onClick={() => navigate("/about")}>ABOUT</Text>
-  //             </VStack>
-  //           </DrawerBody>
-  //         </DrawerContent>
-  //       </DrawerOverlay>
-  //     </Drawer>
-
-  //     <ShoppingCartDrawer isCartOpen={isCartOpen} setCartOpen={setCartOpen} />
-  //     <WishlistDrawer isWishlistOpen={isWishlistOpen} setWishlistOpen={setWishlistOpen} />
-  //   </Box>
-  // );
-
   return (
     <Box position="sticky" top="0" bg="white" zIndex="1000" boxShadow="0 2px 20px rgba(0,0,0,0.04)">
 
       {/* TOP ANNOUNCEMENT BAR */}
       <Flex
-        bg="black"
+        bg="brand.500"
         color="white"
         height="36px"
         align="center"
@@ -282,15 +126,18 @@ const Header = () => {
             onClick={handleToggle}
           />
 
-          <Text
-            fontSize="2xl"
-            fontWeight="700"
-            letterSpacing="1px"
-            cursor="pointer"
-            onClick={() => navigate("/")}
-          >
-            KP <Box as="span" fontWeight="300">CIRCUIT</Box>
-          </Text>
+          <Flex align="center" cursor="pointer" onClick={() => navigate("/")}>
+            <Img src={logoNew} height="60px" mr={3} />
+            <Text
+              fontSize="xl"
+              fontWeight="700"
+              letterSpacing="1px"
+              color="brand.500"
+              display={{ base: "none", lg: "block" }}
+            >
+              KP CIRCUIT <Box as="span" fontWeight="300">CITY</Box>
+            </Text>
+          </Flex>
         </HStack>
 
         {/* CENTER SEARCH */}
@@ -309,7 +156,7 @@ const Header = () => {
               variant="ghost"
               borderRadius="full"
               bg="gray.50"
-              _hover={{ bg: "gray.100" }}
+              _hover={{ bg: "brand.100" }}
             />
             <MenuList borderRadius="12px" boxShadow="lg">
               {isLoggedIn ? (
@@ -331,7 +178,7 @@ const Header = () => {
               icon={<FaRegHeart />}
               borderRadius="full"
               bg="gray.50"
-              _hover={{ bg: "gray.100" }}
+              _hover={{ bg: "brand.100" }}
               onClick={() => setWishlistOpen(!isWishlistOpen)}
             />
             {wishlistCount > 0 && (
@@ -339,7 +186,7 @@ const Header = () => {
                 position="absolute"
                 top="-4px"
                 right="-4px"
-                bg="black"
+                bg="brand.500"
                 color="white"
                 borderRadius="full"
                 fontSize="10px"
@@ -358,9 +205,9 @@ const Header = () => {
             <IconButton
               icon={<FaShoppingCart />}
               borderRadius="full"
-              bg="black"
+              bg="brand.500"
               color="white"
-              _hover={{ bg: "gray.800" }}
+              _hover={{ bg: "brand.800" }}
               onClick={() => setCartOpen(!isCartOpen)}
             />
             {cartCount > 0 && (

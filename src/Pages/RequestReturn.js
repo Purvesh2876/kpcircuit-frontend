@@ -227,7 +227,7 @@ const RequestReturn = () => {
 
                 <FormControl>
                     <FormLabel>Preferred Outcome</FormLabel>
-                    <Box p={3} bg="blue.50" borderRadius="md" borderLeft="4px solid" borderColor="blue.500">
+                    <Box p={3} bg="brand.50" borderRadius="md" borderLeft="4px solid" borderColor="brand.500">
                         <Text fontWeight="bold" color="blue.700">REPLACEMENT</Text>
                         <Text fontSize="xs" color="blue.600">
                             Note: We primarily offer replacements. If the item is out of stock after we collect your return, a refund will be processed automatically.
@@ -248,7 +248,7 @@ const RequestReturn = () => {
                 </FormControl>
 
                 <Button
-                    colorScheme="blue"
+                    colorScheme="brand"
                     onClick={handleSubmit}
                     isLoading={isSubmitting}
                     loadingText="Submitting..."

@@ -59,7 +59,7 @@ const FilteredProducts = () => {
 
   return (
     <Box>
-      <Box as="header" p={4} bg="teal.500" color="white">
+      <Box as="header" p={4} bg="brand.500" color="white">
         <Heading>Product Page</Heading>
       </Box>
 
@@ -92,7 +92,7 @@ const FilteredProducts = () => {
 
           <Button
             variant="outline"
-            colorScheme="teal"
+            colorScheme="brand"
             onClick={() => setSelectedColors([])}
             width="full"
             mt={2}

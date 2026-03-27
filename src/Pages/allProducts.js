@@ -780,7 +780,7 @@ const AllProducts = () => {
                 pl={filters.category === cat._id ? "12px" : "0"}
                 borderLeft={
                   filters.category === cat._id
-                    ? "3px solid black"
+                    ? "3px solid #004d3d"
                     : "3px solid transparent"
                 }
                 transition="all 0.2s ease"
@@ -835,7 +835,7 @@ const AllProducts = () => {
             }
           >
             <RangeSliderTrack>
-              <RangeSliderFilledTrack bg="black" />
+              <RangeSliderFilledTrack bg="brand.500" />
             </RangeSliderTrack>
             <RangeSliderThumb index={0} />
             <RangeSliderThumb index={1} />
@@ -947,11 +947,11 @@ const AllProducts = () => {
                         </Flex>
 
                         <Button
-                          bg="black"
+                          bg="brand.500"
                           color="white"
                           flex="2"
                           borderRadius="12px"
-                          _hover={{ bg: "gray.800" }}
+                          _hover={{ bg: "brand.800" }}
                           leftIcon={<FaShoppingCart />}
                           onClick={() =>
                             handleAddToCart(

@@ -327,25 +327,6 @@ const Home = ({ }) => {
 
   return (
     <>
-      {/* <Box overflowX="hidden" overflowY="hidden">
-        <Slider {...sliderSettings}>
-          {posterPaths.map((path, index) => (
-            <Fade
-              key={index}
-              in={true}
-              style={{ transitionDelay: `${index * 0.5}s` }}
-            >
-              <Box mb={4}>
-                <Image
-                  src={path}
-                  alt={`Poster ${index + 1}`}
-                  style={{ width: "100%", height: "auto" }}
-                />
-              </Box>
-            </Fade>
-          ))}
-        </Slider>
-      </Box> */}
       <Box px={{ base: 4, md: 12 }} mt={6}>
         <Box
           bg="#f5f5f5"
@@ -386,12 +367,12 @@ const Home = ({ }) => {
               </Text>
 
               <Button
-                bg="black"
+                bg="brand.500"
                 color="white"
                 borderRadius="full"
                 px={8}
                 py={6}
-                _hover={{ bg: "gray.800" }}
+                _hover={{ bg: "brand.800" }}
                 onClick={shopNowToProducts}
               >
                 Shop Now →
@@ -409,20 +390,21 @@ const Home = ({ }) => {
           </Flex>
 
           {/* Background Big Faded Text */}
-          <Text
+          {/* <Text
             position="absolute"
             bottom="10px"
             left="50%"
             transform="translateX(-50%)"
             fontSize="150px"
             fontWeight="800"
-            color="gray.200"
+            color="brand.100" // Faded brand color
             zIndex="0"
+            opacity="0.8"
             userSelect="none"
             display={{ base: "none", md: "block" }}
           >
             KP
-          </Text>
+          </Text> */}
         </Box>
       </Box>
 
@@ -458,8 +440,8 @@ const Home = ({ }) => {
           ].map((item, index) => (
             <Box key={index} textAlign="center">
               <Box
-                bg="gray.100"
-                borderRadius="full"
+                bg="brand.50"
+                color="brand.500"
                 w="50px"
                 h="50px"
                 display="flex"
@@ -482,157 +464,6 @@ const Home = ({ }) => {
           ))}
         </Flex>
       </Box>
-
-      {/* <Box id="featured-products" m={0}>
-        <Stack
-          direction="column"
-          spacing={6}
-          align="center"
-          justify="center"
-          mt={{ base: 8, md: 12 }}
-          px={4}
-        >
-          <Heading
-            px={{ base: 6, md: 10 }}
-            py={2}
-            fontSize={{ base: "xl", sm: "2xl", md: "3xl", lg: "4xl" }}
-            fontWeight="500"
-            border="1px solid"
-            borderColor="gray.400"
-            borderRadius="full"
-            textAlign="center"
-            fontFamily="'Quicksand', sans-serif"
-          >
-            Featured Products
-          </Heading>
-        </Stack>
-
-        <Box width="80%" overflow="hidden" py={10} mx="auto">
-          <Slider {...sliderSettings2}>
-
-            {products.map((product) => (
-              <Box key={product._id} px={4}>
-                <Box
-                  bg="white"
-                  borderRadius="16px"
-                  overflow="hidden"
-                  boxShadow="0 4px 20px rgba(0,0,0,0.04)"
-                  _hover={{
-                    transform: "scale(1.02)",
-                    transition: "all 0.3s ease"
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  <Box position="relative" role="group">
-                    <Image
-                      src={`http://localhost:5000/uploads${product.images[0]}`} // http://76.13.247.39:5000
-                      h="240px"
-                      w="100%"
-                      objectFit="cover"
-                      bg="gray.50"
-                      p={0}
-                    />
-
-                    <IconButton
-                      icon={<FaHeart />}
-                      aria-label="Wishlist"
-                      position="absolute"
-                      top="12px"
-                      right="12px"
-                      borderRadius="full"
-                      bg="white"
-                      size="sm"
-                      boxShadow="sm"
-                      opacity={0}
-                      transform="translateY(-10px)"
-                      _groupHover={{
-                        opacity: 1,
-                        transform: "translateY(0px)",
-                      }}
-                      transition="all 0.3s ease"
-                      _hover={{ bg: "gray.100" }}
-                      onClick={() => addToWishlist(product._id)}
-                    />
-                  </Box>
-
-                  <Box p={5}>
-                    <Text
-                      fontWeight="600"
-                      fontSize="md"
-                      mb={2}
-                      noOfLines={1}
-                    >
-                      {product.name}
-                    </Text>
-
-                    <Text
-                      fontWeight="bold"
-                      fontSize="lg"
-                      mb={4}
-                      color="black"
-                    >
-                      ₹ {product.price}
-                    </Text>
-
-                    <Flex gap={3}>
-                      <Flex
-                        border="1px solid #E2E8F0"
-                        borderRadius="8px"
-                        align="center"
-                        justify="space-between"
-                        px={3}
-                        py={1}
-                        flex="1"
-                        bg="gray.50"
-                      >
-                        <Text
-                          cursor="pointer"
-                          fontWeight="bold"
-                          onClick={() => decreaseQty(product._id)}
-                        >
-                          −
-                        </Text>
-
-                        <Text fontWeight="500">
-                          {quantities[product._id] || 1}
-                        </Text>
-
-                        <Text
-                          cursor="pointer"
-                          fontWeight="bold"
-                          onClick={() => increaseQty(product._id)}
-                        >
-                          +
-                        </Text>
-                      </Flex>
-
-
-                      <Button
-                        bg="black"
-                        color="white"
-                        flex="2"
-                        borderRadius="8px"
-                        _hover={{ bg: "gray.800" }}
-                        leftIcon={<FaShoppingCart />}
-                        onClick={() =>
-                          handleAddToCart(
-                            product._id,
-                            quantities[product._id] || 1
-                          )
-                        }
-
-                      >
-                        ADD
-                      </Button>
-                    </Flex>
-                  </Box>
-                </Box>
-              </Box>
-            ))}
-
-          </Slider>
-        </Box>
-      </Box > */}
 
       <Box id="featured-products" px={{ base: 4, md: 12 }} mt={20}>
 
@@ -696,7 +527,6 @@ const Home = ({ }) => {
                     w="100%"
                     objectFit="cover"
                     bg="gray.50"
-                  // p={6}
                   />
                 </Link>
 
@@ -741,7 +571,7 @@ const Home = ({ }) => {
 
                 {/* CONTROLS */}
                 <Flex gap={3}>
-                  {/* Quantity */}
+                  {/* Quantity Selector */}
                   <Flex
                     border="1px solid #E2E8F0"
                     borderRadius="12px"
@@ -775,11 +605,11 @@ const Home = ({ }) => {
 
                   {/* Add Button */}
                   <Button
-                    bg="black"
+                    bg="brand.500"
                     color="white"
                     flex="2"
                     borderRadius="12px"
-                    _hover={{ bg: "gray.800" }}
+                    _hover={{ bg: "brand.800" }}
                     leftIcon={<FaShoppingCart />}
                     onClick={() =>
                       handleAddToCart(
@@ -796,87 +626,6 @@ const Home = ({ }) => {
           ))}
         </SimpleGrid>
       </Box>
-
-      {/* <br></br>
-      <br></br> */}
-      {/* //category */}
-      {/* <Box bgColor={'gray.100'} mt={10} pb={10} pt={1}>
-        <Stack
-          direction="column"
-          spacing={6}
-          align="center"
-          justify="center"
-          mt={{ base: 8, md: 12 }}
-          mb={{ base: 4, md: 8 }}
-          px={4}
-        >
-          <Heading
-            px={{ base: 6, md: 10 }}
-            py={2}
-            fontSize={{ base: "xl", sm: "2xl", md: "3xl", lg: "4xl" }}
-            fontWeight="500"
-            border="1px solid"
-            borderColor="gray.400"
-            borderRadius="full"
-            textAlign="center"
-            fontFamily="'Quicksand', sans-serif"
-           >
-            All Categories
-          </Heading>
-        </Stack>
-
-        <Stack spacing={4} align="center" justify="center">
-          <Stack spacing={4} align="center" justify="center" marginTop={2}>
-            <SimpleGrid columns={[1, 2, 2, 4]} spacing={4} alignItems="stretch">
-              {categories.map((category) => (
-                <React.Fragment key={category}>
-                  <Link to={`/products/${encodeURIComponent(category.name)}`} display='flex' justifyContent={'center'} alignItems={'center'}>
-                    <Card
-                      shadow={"none"}
-                      borderRadius={'10px'}
-                    >
-                      <CardBody
-                        _hover={{ boxShadow: "0px 5px 10px rgba(0,0,0,0.15)" }}  // Applies medium shadow on hover
-                        transition="box-shadow 0.1s ease-in-out"
-                        border="1px solid #cbcbcbff" p={0}
-                        borderRadius={'10px'}
-                        boxShadow={"0px 0px 10px rgba(0, 0, 0, 0.1)"}>
-                        <Link
-                          to={{
-                            pathname: `/category/${category._id}`,
-                            state: { category },
-                          }}
-                          key={category._id}
-                        >
-                          <Stack sx={{ objectFit: "contain" }}>
-                            <Image
-                              height="200px"
-                              width="244px"
-                              objectFit="cover"
-                              borderRadius={'10px'}
-                              m={4}
-                              border="1px solid #cbcbcbff"
-                              src={`http://localhost:5000/uploads${category.image}`} // http://76.13.247.39:5000
-                              onMouseOver={() => handleHover(category._id)}
-                              onMouseOut={handleHoverOut}
-                              alt={category.name}
-                            />
-                          </Stack>
-                        </Link>
-                        <Stack mb={4} mx={4} direction="column" display={'flex'} justifyContent={'center'} alignItems={'left'}>
-                          <Text fontSize={20} fontWeight={600} fontFamily="'Quicksand', sans-serif">
-                            {category.name}
-                          </Text>
-                        </Stack>
-                      </CardBody>
-                    </Card>
-                  </Link>
-                </React.Fragment>
-              ))}
-            </SimpleGrid>
-          </Stack>
-        </Stack>
-      </Box> */}
 
       <Box px={{ base: 4, md: 12 }} mt={24}>
 
@@ -1017,177 +766,6 @@ const Home = ({ }) => {
 
       </Box>
 
-      {/* <Box mt={10} pb={10} pt={1}>
-        <Stack
-          direction="column"
-          spacing={6}
-          align="center"
-          justify="center"
-          mt={{ base: 8, md: 12 }}
-          mb={{ base: 4, md: 8 }}
-          px={4}
-        >
-          <Heading
-            px={{ base: 6, md: 10 }}
-            py={2}
-            fontSize={{ base: "xl", sm: "2xl", md: "3xl", lg: "4xl" }}
-            fontWeight="500"
-            border="1px solid"
-            borderColor="gray.400"
-            borderRadius="full"
-            textAlign="center"
-            fontFamily="'Quicksand', sans-serif"
-          >
-            All Products
-          </Heading>
-        </Stack>
-
-        <Stack spacing={4} align="center" justify="center" marginTop={2}>
-          <SimpleGrid columns={[1, 2, 2, 4]} spacing={8} alignItems="stretch">
-            {allProducts.map((product) => (
-              <Box key={product._id}>
-                <Box
-                  bg="white"
-                  width="280px"
-                  borderRadius="16px"
-                  overflow="hidden"
-                  maxW={["100%", "100%", "xs"]}
-                  boxShadow="0 4px 20px rgba(0,0,0,0.06)"
-                  _hover={{
-                    boxShadow: "0 12px 30px rgba(0,0,0,0.12)",
-                    transform: "translateY(-6px)",
-                  }}
-                  transition="all 0.3s ease"
-                >
-                  <Box position="relative" role="group">
-                    <Link to={`/productdetails/${product._id}`}>
-                      <Image
-                        h="240px"
-                        w="100%"
-                        objectFit="cover"
-                        bg="gray.50"
-                        src={`http://localhost:5000/uploads${hoveredProductId === product._id
-                          ? product.images[1]
-                          : product.images[0]
-                          }`} // http://76.13.247.39:5000
-                        onMouseOver={() => handleHover(product._id)}
-                        onMouseOut={handleHoverOut}
-                        alt={product.name}
-                      />
-                    </Link>
-
-                    <IconButton
-                      icon={<FaHeart />}
-                      aria-label="Wishlist"
-                      position="absolute"
-                      top="12px"
-                      right="12px"
-                      borderRadius="full"
-                      bg="white"
-                      size="sm"
-                      boxShadow="sm"
-                      opacity={0}
-                      transform="translateY(-10px)"
-                      _groupHover={{
-                        opacity: 1,
-                        transform: "translateY(0px)",
-                      }}
-                      transition="all 0.3s ease"
-                      _hover={{ bg: "gray.100" }}
-                      onClick={() => addToWishlist(product._id)}
-                    />
-                  </Box>
-
-                  <Box p={5}>
-                    <Text
-                      fontWeight="600"
-                      fontSize="md"
-                      mb={2}
-                      noOfLines={1}
-                    >
-                      {product.name}
-                    </Text>
-
-                    <Text
-                      fontWeight="bold"
-                      fontSize="lg"
-                      mb={4}
-                      color="black"
-                    >
-                      ₹ {product.price}
-                    </Text>
-
-                    <Flex gap={3}>
-                      <Flex
-                        border="1px solid #E2E8F0"
-                        borderRadius="8px"
-                        align="center"
-                        justify="space-between"
-                        px={3}
-                        py={1}
-                        flex="1"
-                        bg="gray.50"
-                      >
-                        <Text
-                          cursor="pointer"
-                          fontWeight="bold"
-                          onClick={() => decreaseQty(product._id)}
-                        >
-                          −
-                        </Text>
-
-                        <Text fontWeight="500">
-                          {quantities[product._id] || 1}
-                        </Text>
-
-                        <Text
-                          cursor="pointer"
-                          fontWeight="bold"
-                          onClick={() => increaseQty(product._id)}
-                        >
-                          +
-                        </Text>
-                      </Flex>
-
-                      <Button
-                        bg="black"
-                        color="white"
-                        flex="2"
-                        borderRadius="8px"
-                        _hover={{ bg: "gray.800" }}
-                        leftIcon={<FaShoppingCart />}
-                        onClick={() =>
-                          handleAddToCart(
-                            product._id,
-                            quantities[product._id] || 1
-                          )
-                        }
-                      >
-                        ADD
-                      </Button>
-                    </Flex>
-                  </Box>
-                </Box>
-              </Box>
-            ))}
-
-          </SimpleGrid>
-        </Stack>
-
-        <Flex align={'center'} justifyContent={'center'} mt={10}>
-
-          <Link
-            to={{
-              pathname: `/products`
-            }}
-          >
-            <Button variant={'outline'}>
-              View More
-            </Button>
-          </Link>
-        </Flex>
-      </Box > */}
-
       <Box px={{ base: 4, md: 12 }} mt={28} pb={20}>
 
         {/* SECTION HEADER */}
@@ -1211,9 +789,9 @@ const Home = ({ }) => {
             <Button
               borderRadius="full"
               px={6}
-              bg="black"
+              bg="brand.500"
               color="white"
-              _hover={{ bg: "gray.800" }}
+              _hover={{ bg: "brand.800" }}
             >
               View More →
             </Button>
@@ -1340,11 +918,11 @@ const Home = ({ }) => {
 
                   {/* Add Button */}
                   <Button
-                    bg="black"
+                    bg="brand.500"
                     color="white"
                     flex="2"
                     borderRadius="12px"
-                    _hover={{ bg: "gray.800" }}
+                    _hover={{ bg: "brand.800" }}
                     leftIcon={<FaShoppingCart />}
                     onClick={() =>
                       handleAddToCart(

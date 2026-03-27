@@ -169,7 +169,7 @@ const CheckoutPage = () => {
                 key: `${process.env.REACT_APP_RAZORPAY_KEY_ID}`, // 🔴 change to live in production
                 amount: data.razorpayOrder.amount,
                 currency: "INR",
-                name: "Nisarg Ecomm",
+                name: "KP Circuit City",
                 order_id: data.razorpayOrder.id,
 
                 handler: async function (response) {
@@ -203,7 +203,7 @@ const CheckoutPage = () => {
                     contact: formData.phone,
                 },
 
-                theme: { color: "#000000" },
+                theme: { color: "#004d3d" },
             };
 
             const paymentObject = new window.Razorpay(options);
@@ -236,7 +236,7 @@ const CheckoutPage = () => {
     }
 
     return (
-        <Box bg="#f5f1eb" minH="100vh">
+        <Box bg="gray.50" minH="100vh">
             <Box
                 maxW="1280px"
                 mx="auto"
@@ -276,7 +276,7 @@ const CheckoutPage = () => {
                                         borderRadius="4px"
                                         _hover={{ borderColor: "#bfb8ae" }}
                                         _focus={{
-                                            borderColor: "#000",
+                                            borderColor: "brand.500",
                                             boxShadow: "none",
                                         }}
                                     />
@@ -296,7 +296,7 @@ const CheckoutPage = () => {
                                         borderRadius="4px"
                                         _hover={{ borderColor: "#bfb8ae" }}
                                         _focus={{
-                                            borderColor: "#000",
+                                            borderColor: "brand.500",
                                             boxShadow: "none",
                                         }}
                                     />
@@ -319,7 +319,7 @@ const CheckoutPage = () => {
                                         borderRadius="4px"
                                         _hover={{ borderColor: "#bfb8ae" }}
                                         _focus={{
-                                            borderColor: "#000",
+                                            borderColor: "brand.500",
                                             boxShadow: "none",
                                         }}
                                     />
@@ -339,7 +339,7 @@ const CheckoutPage = () => {
                                         borderRadius="4px"
                                         _hover={{ borderColor: "#bfb8ae" }}
                                         _focus={{
-                                            borderColor: "#000",
+                                            borderColor: "brand.500",
                                             boxShadow: "none",
                                         }}
                                     />
@@ -383,7 +383,7 @@ const CheckoutPage = () => {
                                         borderRadius="4px"
                                         _hover={{ borderColor: "#bfb8ae" }}
                                         _focus={{
-                                            borderColor: "#000",
+                                            borderColor: "brand.500",
                                             boxShadow: "none",
                                         }}
                                     />
@@ -403,7 +403,7 @@ const CheckoutPage = () => {
                                         borderRadius="4px"
                                         _hover={{ borderColor: "#bfb8ae" }}
                                         _focus={{
-                                            borderColor: "#000",
+                                            borderColor: "brand.500",
                                             boxShadow: "none",
                                         }}
                                     />
@@ -416,7 +416,7 @@ const CheckoutPage = () => {
                     <Box
                         flex="1"
                         w="100%"
-                        bg="#e9dfd2"
+                        bg="brand.50"
                         borderRadius="6px"
                         px={{ base: 6, md: 8 }}
                         py={{ base: 8, md: 10 }}
@@ -516,10 +516,10 @@ const CheckoutPage = () => {
                                 <Button
                                     w="100%"
                                     h="50px"
-                                    bg="#8b2c24"
+                                    bg="brand.500"
                                     color="white"
                                     borderRadius="4px"
-                                    _hover={{ bg: "#74231d" }}
+                                    _hover={{ bg: "brand.800" }}
                                     onClick={handlePayment}
                                     isLoading={processing}
                                     isDisabled={cartItems.length === 0}
