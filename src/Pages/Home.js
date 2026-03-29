@@ -223,7 +223,7 @@ const Home = ({ }) => {
   const fetchAllProducts = async () => {
     try {
       const response = await getAllProducts({
-        limit: 8,
+        limit: 12,
         sort: "newest",
       });
       setAllProducts(response.products);
@@ -319,10 +319,11 @@ const Home = ({ }) => {
     autoplaySpeed: 1000,
   };
   const navigate = useNavigate();
-  const query = 'Rasp'
+  // const query = 'Rasp'
   const shopNowToProducts = () => {
-    if (!query.trim()) return;
-    navigate(`/products?search=${query}`);
+    // if (!query.trim()) return;
+    // navigate(`/products?search=${query}`);
+    navigate(`/products`);
   };
 
   return (
@@ -484,7 +485,7 @@ const Home = ({ }) => {
             </Text>
           </Box>
 
-          <Link to="/products">
+          <Link to="/products?featured=true">
             <Button
               variant="outline"
               borderRadius="full"

@@ -106,7 +106,7 @@ const Header = () => {
         fontWeight="500"
         letterSpacing="0.5px"
       >
-        🚚 Free Shipping Above ₹999 | 🔒 100% Secure Payments
+        ✨ Premium Electronic Components | 🔒 100% Secure Payments | ✅ 100% Genuine Products
       </Flex>
 
       {/* MAIN HEADER */}
@@ -135,7 +135,7 @@ const Header = () => {
               color="brand.500"
               display={{ base: "none", lg: "block" }}
             >
-              KP CIRCUIT <Box as="span" fontWeight="300">CITY</Box>
+              KP CIRCUIT CITY<Box as="span" fontWeight="300"></Box>
             </Text>
           </Flex>
         </HStack>

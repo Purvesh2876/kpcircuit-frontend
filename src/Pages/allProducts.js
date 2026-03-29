@@ -551,15 +551,23 @@ const AllProducts = () => {
     minPrice: 0,
     maxPrice: MAX_PRICE_DEFAULT,
     featured: false,
+    page: 1, // Add default page
   });
 
-  // Search from URL
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalProducts, setTotalProducts] = useState(0);
+
+  // Handle filters from URL
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const searchParam = params.get("search");
-    if (searchParam) {
-      setFilters((prev) => ({ ...prev, search: searchParam }));
-    }
+    const featuredParam = params.get("featured");
+
+    setFilters((prev) => ({
+      ...prev,
+      search: searchParam || prev.search,
+      featured: featuredParam === "true" ? true : prev.featured,
+    }));
   }, [location.search]);
 
   // Load categories
@@ -592,12 +600,15 @@ const AllProducts = () => {
         minPrice: filters.minPrice,
         maxPrice: filters.maxPrice,
         featured: filters.featured,
-        limit: 50,
+        page: filters.page, // Pass current page
+        limit: 12, // Standard 3 rows of 4
       });
 
-      console.log("Products:", res.products);
+      console.log("Products response:", res);
 
       setProducts(res.products || []);
+      setTotalPages(res.totalPages || 1);
+      setTotalProducts(res.totalProducts || 0);
       setLoading(false);
     };
 
@@ -610,10 +621,16 @@ const AllProducts = () => {
     filters.minPrice,
     filters.maxPrice,
     filters.featured,
+    filters.page, // Refetch on page change
   ]);
 
+  // 🔥 IMPORTANT: RESET PAGE TO 1 ON FILTER CHANGE
+  const handleFilterChange = (newFilters) => {
+    setFilters({ ...filters, ...newFilters, page: 1 });
+  };
+
   const handleCategoryClick = async (catId) => {
-    setFilters({ ...filters, category: catId, subCategory: "" });
+    handleFilterChange({ category: catId, subCategory: "" });
 
     if (catId) {
       const subs = await getSubCategoriesByCategory(catId);
@@ -621,6 +638,16 @@ const AllProducts = () => {
     } else {
       setSubCategories([]);
     }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setFilters(prev => ({ ...prev, page: newPage }));
+    scrollToTop();
   };
 
   const increaseQty = (id) => {
@@ -702,7 +729,7 @@ const AllProducts = () => {
               maxW="200px"
               value={filters.sort}
               onChange={(e) =>
-                setFilters({ ...filters, sort: e.target.value })
+                handleFilterChange({ sort: e.target.value })
               }
             >
               <option value="newest">Newest</option>
@@ -747,7 +774,7 @@ const AllProducts = () => {
               bg="gray.50"
               value={filters.search}
               onChange={(e) =>
-                setFilters({ ...filters, search: e.target.value })
+                handleFilterChange({ search: e.target.value })
               }
             />
           </InputGroup>
@@ -804,7 +831,7 @@ const AllProducts = () => {
             mb={10}
             value={filters.subCategory}
             onChange={(e) =>
-              setFilters({ ...filters, subCategory: e.target.value })
+              handleFilterChange({ subCategory: e.target.value })
             }
             isDisabled={!filters.category}
           >
@@ -827,8 +854,7 @@ const AllProducts = () => {
             step={100}
             value={[filters.minPrice, filters.maxPrice]}
             onChange={(val) =>
-              setFilters({
-                ...filters,
+              handleFilterChange({
                 minPrice: val[0],
                 maxPrice: val[1],
               })
@@ -854,7 +880,7 @@ const AllProducts = () => {
             <Switch
               isChecked={filters.featured}
               onChange={() =>
-                setFilters({ ...filters, featured: !filters.featured })
+                handleFilterChange({ featured: !filters.featured })
               }
             />
           </Flex>
@@ -874,99 +900,162 @@ const AllProducts = () => {
           <SimpleGrid columns={{ base: 1, sm: 2, lg: 3 }} spacing={10}>
             {loading
               ? Array.from({ length: 6 }).map((_, i) => (
-                  <Skeleton key={i} height="400px" borderRadius="25px" />
-                ))
+                <Skeleton key={i} height="400px" borderRadius="25px" />
+              ))
               : products.map((product) => (
-                  <Box
-                    key={product._id}
-                    bg="white"
-                    borderRadius="25px"
-                    border="1px solid #f1f1f1"
-                    overflow="hidden"
-                    transition="all 0.3s ease"
-                    _hover={{
-                      transform: "translateY(-8px)",
-                      boxShadow: "0 25px 60px rgba(0,0,0,0.08)",
-                    }}
-                  >
-                    <Box position="relative" role="group">
-                      <Link to={`/productdetails/${product._id}`}>
-                        <Box bg="gray.50" p={6} h="240px">
-                          <Image
-                            src={`/uploads${product.images[0]}`}
-                            h="100%"
-                            w="100%"
-                            objectFit="contain"
-                            transition="0.4s"
-                            _groupHover={{ transform: "scale(1.05)" }}
-                          />
-                        </Box>
-                      </Link>
+                <Box
+                  key={product._id}
+                  bg="white"
+                  borderRadius="25px"
+                  border="1px solid #f1f1f1"
+                  overflow="hidden"
+                  transition="all 0.3s ease"
+                  _hover={{
+                    transform: "translateY(-8px)",
+                    boxShadow: "0 25px 60px rgba(0,0,0,0.08)",
+                  }}
+                >
+                  <Box position="relative" role="group">
+                    <Link to={`/productdetails/${product._id}`}>
+                      <Box bg="gray.50" p={6} h="240px">
+                        <Image
+                          src={`/uploads${product.images[0]}`}
+                          h="100%"
+                          w="100%"
+                          objectFit="contain"
+                          transition="0.4s"
+                          _groupHover={{ transform: "scale(1.05)" }}
+                        />
+                      </Box>
+                    </Link>
 
-                      <IconButton
-                        icon={<FaHeart />}
-                        position="absolute"
-                        top="16px"
-                        right="16px"
-                        borderRadius="full"
-                        bg="white"
-                        size="sm"
-                        boxShadow="md"
-                        opacity={0}
-                        _groupHover={{ opacity: 1 }}
-                        onClick={() => addToWishlist(product._id)}
-                      />
-                    </Box>
-
-                    <Box p={6}>
-                      <Text fontWeight="600" textAlign="center" mb={2}>
-                        {product.name}
-                      </Text>
-
-                      <Text
-                        fontWeight="700"
-                        textAlign="center"
-                        mb={4}
-                      >
-                        ₹ {product.price}
-                      </Text>
-
-                      <Flex gap={3}>
-                        <Flex
-                          border="1px solid #E2E8F0"
-                          borderRadius="12px"
-                          align="center"
-                          justify="space-between"
-                          px={3}
-                          flex="1"
-                          bg="gray.50"
-                        >
-                          <Text onClick={() => decreaseQty(product._id)}>−</Text>
-                          <Text>{quantities[product._id] || 1}</Text>
-                          <Text onClick={() => increaseQty(product._id)}>+</Text>
-                        </Flex>
-
-                        <Button
-                          bg="brand.500"
-                          color="white"
-                          flex="2"
-                          borderRadius="12px"
-                          _hover={{ bg: "brand.800" }}
-                          leftIcon={<FaShoppingCart />}
-                          onClick={() =>
-                            handleAddToCart(
-                              product._id,
-                              quantities[product._id] || 1
-                            )
-                          }
-                        >
-                          Add
-                        </Button>
-                      </Flex>
-                    </Box>
+                    <IconButton
+                      icon={<FaHeart />}
+                      position="absolute"
+                      top="16px"
+                      right="16px"
+                      borderRadius="full"
+                      bg="white"
+                      size="sm"
+                      boxShadow="md"
+                      opacity={0}
+                      _groupHover={{ opacity: 1 }}
+                      onClick={() => addToWishlist(product._id)}
+                    />
                   </Box>
-                ))}
+
+                  <Box p={6}>
+                    <Text fontWeight="600" textAlign="center" mb={2}>
+                      {product.name}
+                    </Text>
+
+                    <Text
+                      fontWeight="700"
+                      textAlign="center"
+                      mb={4}
+                    >
+                      ₹ {product.price}
+                    </Text>
+
+                    <Flex gap={3}>
+                      <Flex
+                        border="1px solid #E2E8F0"
+                        borderRadius="12px"
+                        align="center"
+                        justify="space-between"
+                        px={3}
+                        flex="1"
+                        bg="gray.50"
+                      >
+                        <Text onClick={() => decreaseQty(product._id)}>−</Text>
+                        <Text>{quantities[product._id] || 1}</Text>
+                        <Text onClick={() => increaseQty(product._id)}>+</Text>
+                      </Flex>
+
+                      <Button
+                        bg="brand.500"
+                        color="white"
+                        flex="2"
+                        borderRadius="12px"
+                        _hover={{ bg: "brand.800" }}
+                        leftIcon={<FaShoppingCart />}
+                        onClick={() =>
+                          handleAddToCart(
+                            product._id,
+                            quantities[product._id] || 1
+                          )
+                        }
+                      >
+                        Add
+                      </Button>
+                    </Flex>
+                  </Box>
+                </Box>
+              ))}
           </SimpleGrid>
+
+          {/* ================= PAGINATION (AS PER USER IMAGE) ================= */}
+          {!loading && products.length > 0 && (
+            <Flex
+              mt={16}
+              py={4}
+              justify="center"
+              align="center"
+              gap={{ base: 4, md: 8 }}
+              flexWrap="wrap"
+            >
+              {/* << Page 1 (Jump to start) */}
+              <Text
+                fontSize="sm"
+                fontWeight="700"
+                color={filters.page === 1 ? "gray.300" : "gray.600"}
+                cursor={filters.page === 1 ? "not-allowed" : "pointer"}
+                onClick={() => handlePageChange(1)}
+                display="flex"
+                alignItems="center"
+                _hover={filters.page !== 1 ? { color: "brand.500" } : {}}
+              >
+                «« Page 1
+              </Text>
+
+              {/* < Previous Button */}
+              <Button
+                leftIcon={<Text fontSize="lg" mt="-2px">‹</Text>}
+                variant="outline"
+                borderRadius="10px"
+                px={6}
+                borderColor="gray.200"
+                color="gray.600"
+                fontWeight="600"
+                isDisabled={filters.page === 1}
+                onClick={() => handlePageChange(filters.page - 1)}
+                _hover={{ bg: "gray.50" }}
+              >
+                Previous
+              </Button>
+
+              {/* Page X of Y Text */}
+              <Text fontSize="sm" color="gray.500" fontWeight="500">
+                Page {filters.page} of {totalPages}
+              </Text>
+
+              {/* Next > Button */}
+              <Button
+                rightIcon={<Text fontSize="lg" mt="-2px">›</Text>}
+                variant="outline"
+                borderRadius="10px"
+                px={6}
+                borderColor="gray.200"
+                color="brand.500"
+                fontWeight="700"
+                isDisabled={filters.page === totalPages}
+                onClick={() => handlePageChange(filters.page + 1)}
+                _hover={{ bg: "gray.50" }}
+              >
+                Next
+              </Button>
+            </Flex>
+          )}
         </Box>
       </Flex>
 

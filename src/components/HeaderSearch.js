@@ -88,9 +88,15 @@ const HeaderSearch = () => {
                 height="42px"
             /> */}
             <InputGroup>
+                {/* Hidden decoy input to "catch" incorrect browser autofill on the Profile page */}
+                <Box position="absolute" opacity={0} height={0} width={0} overflow="hidden">
+                    <Input tabIndex="-1" type="text" name="fake_email_autofill" />
+                    <Input tabIndex="-2" type="password" name="fake_password_autofill" />
+                </Box>
+
                 <Input
-                    type="text"
-                    name="search-query"
+                    type="search"
+                    name="kp_search_query"
                     autoComplete="off"
                     placeholder="Search for products..."
                     value={query}
