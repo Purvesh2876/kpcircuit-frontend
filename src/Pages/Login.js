@@ -21,7 +21,7 @@ import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { login, forgotPassword } from '../actions/api';
 import GoogleSignIn from './GoogleSignIn';
-import logo from '../logo.png';
+import logo from '../images/logo_new.png';
 
 const Login = () => {
     const [email, setEmail] = useState('');
