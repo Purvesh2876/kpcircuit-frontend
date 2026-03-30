@@ -217,14 +217,14 @@ const Login = () => {
                         </Stack>
                     </form>
 
-                    <Flex align="center" my={8}>
+                    {/* <Flex align="center" my={8}>
                         <Divider />
                         <Text px={3} color="gray.400" fontSize="xs" fontWeight="bold">OR</Text>
                         <Divider />
-                    </Flex>
+                    </Flex> */}
 
                     <Flex direction="column" align="center" gap={4}>
-                        <GoogleSignIn />
+                        {/* <GoogleSignIn /> */}
 
                         <Text color="gray.600" fontSize="sm">
                             {isForgotMode ? "" : (
