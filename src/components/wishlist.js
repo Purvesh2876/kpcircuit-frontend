@@ -29,11 +29,11 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-  useToast,
 } from '@chakra-ui/react';
 import axios from 'axios';
 import { MdCheckCircle, MdLocationCity } from 'react-icons/md';
 import { getWishlist, removeFromWishlist } from '../actions/api';
+import { useCustomToast } from '../hooks/useCustomToast';
 import { DeleteIcon } from '@chakra-ui/icons';
 
 const WishlistDrawer = ({
@@ -51,7 +51,7 @@ const WishlistDrawer = ({
   const [pincode, setPincode] = useState('');
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
-  const toast = useToast();
+  const toast = useCustomToast();
 
   const handleRemoveFromCart = async (itemId) => {
     console.log('itemif', itemId);

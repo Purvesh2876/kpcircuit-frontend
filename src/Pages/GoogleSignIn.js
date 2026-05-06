@@ -32,10 +32,9 @@ const GoogleSignIn = () => {
             // const res = await axios.post('http://localhost:5000/api/auth/registerOrLogin', { tokenId });
             const res = await handleGoogleLogin(tokenId);
 
-            // Store the token in localStorage
             localStorage.setItem('token', res.token);
+            localStorage.setItem('isLoggedIn', 'true');
 
-            // Redirect to profile or home page
             navigate('/profile');
         } catch (error) {
             console.error('Error during Google login:', error.message);

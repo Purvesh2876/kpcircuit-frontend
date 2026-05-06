@@ -13,10 +13,10 @@ import {
   Flex,
   CardBody,
   Image,
-  useToast,
   IconButton,
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
+import { useCustomToast } from "../hooks/useCustomToast";
 import cat1 from "../images/cat1.jpg"
 import cat2 from "../images/cat2.jpg"
 import slider1 from "../images/1.png";
@@ -235,41 +235,36 @@ const Home = ({ }) => {
     }
   }
 
-  const toast = useToast();
+  const toast = useCustomToast();
   const addToWishlist = async (productId) => {
     const response = await addToWishlistt(productId);
     window.dispatchEvent(new Event("wishlistUpdated"));
     // console.log(response);
     // setIsAddedToWishlist(true);
-    toast({
-      title: response.data.message,
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
+    toast({ title: response.data.message, status: "success", duration: 3000 });
   };
 
   // add to cart function
   const handleAddToCart = async (productId, quantity) => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (!isLoggedIn) {
+      toast({
+        title: "Login required",
+        description: "Please login to add items to your cart.",
+        status: "warning",
+        action: { label: "Login now", onClick: () => navigate('/login') },
+      });
+      return;
+    }
     try {
-      const response = await addToCartt(productId, quantity); // quantity default 1
+      const response = await addToCartt(productId, quantity);
       window.dispatchEvent(new Event("cartUpdated"));
       if (response.status === 200) {
-        toast({
-          title: "Item added to cart",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
+        toast({ title: "Item added to cart", status: "success", duration: 2000 });
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      toast({
-        title: "Error adding to cart",
-        status: "error",
-        duration: 2000,
-        isClosable: true,
-      });
+      toast({ title: "Error adding to cart", status: "error", duration: 2000 });
     }
   };
 

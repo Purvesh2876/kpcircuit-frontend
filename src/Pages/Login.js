@@ -12,7 +12,6 @@ import {
     InputGroup,
     InputRightElement,
     IconButton,
-    useToast,
     Link,
     Image,
     Divider,
@@ -20,6 +19,7 @@ import {
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { login, forgotPassword } from '../actions/api';
+import { useCustomToast } from '../hooks/useCustomToast';
 import GoogleSignIn from './GoogleSignIn';
 import logo from '../images/logo_new.png';
 
@@ -30,7 +30,7 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isForgotMode, setIsForgotMode] = useState(false);
 
-    const toast = useToast();
+    const toast = useCustomToast();
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
@@ -39,6 +39,7 @@ const Login = () => {
         try {
             const response = await login(email, password);
             if (response.success) {
+                localStorage.setItem('isLoggedIn', 'true');
                 toast({
                     title: 'Welcome Back!',
                     description: response.message || 'Login successful.',

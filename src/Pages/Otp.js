@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { PinInput, PinInputField, Box, Heading, Text, Input, Button, Container, Stack, useToast, HStack } from '@chakra-ui/react';
+import { PinInput, PinInputField, Box, Heading, Text, Input, Button, Container, Stack, HStack } from '@chakra-ui/react';
 import "@fontsource/pt-sans";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { activate, login, signup } from '../actions/api';
+import { useCustomToast } from '../hooks/useCustomToast';
 
 const Otp = () => {
 
     const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
-    const toast = useToast();
+    const toast = useCustomToast();
     const navigate = useNavigate();
 
     const handleComplete = (value) => {

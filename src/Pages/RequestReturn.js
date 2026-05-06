@@ -21,17 +21,17 @@ import {
     NumberInputStepper,
     NumberIncrementStepper,
     NumberDecrementStepper,
-    useToast,
     Input,
     HStack,
 } from "@chakra-ui/react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getOrderById, createReturnRequest } from "../actions/api";
+import { useCustomToast } from "../hooks/useCustomToast";
 
 const RequestReturn = () => {
     const { orderId } = useParams();
     const navigate = useNavigate();
-    const toast = useToast();
+    const toast = useCustomToast();
 
     const [order, setOrder] = useState(null);
     const [loading, setLoading] = useState(true);

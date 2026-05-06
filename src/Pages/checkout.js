@@ -10,13 +10,13 @@ import {
     Divider,
     Image,
     HStack,
-    useToast,
     Spinner
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getCart, removeFromCart, createOrder } from "../actions/api";
+import { useCustomToast } from "../hooks/useCustomToast";
 
 /* -------------------- LOAD RAZORPAY SCRIPT -------------------- */
 function loadScript(src) {
@@ -44,7 +44,7 @@ const CheckoutPage = () => {
         pincode: "",
     });
 
-    const toast = useToast();
+    const toast = useCustomToast();
     const navigate = useNavigate();
 
     /* -------------------- FETCH CART -------------------- */

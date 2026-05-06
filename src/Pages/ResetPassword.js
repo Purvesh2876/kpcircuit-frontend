@@ -12,12 +12,12 @@ import {
     InputGroup,
     InputRightElement,
     IconButton,
-    useToast,
     Image,
 } from '@chakra-ui/react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { resetPassword } from '../actions/api';
+import { useCustomToast } from '../hooks/useCustomToast';
 import logo from '../logo.png';
 
 const ResetPassword = () => {
@@ -27,7 +27,7 @@ const ResetPassword = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const { token } = useParams();
-    const toast = useToast();
+    const toast = useCustomToast();
     const navigate = useNavigate();
 
     const handleReset = async (e) => {

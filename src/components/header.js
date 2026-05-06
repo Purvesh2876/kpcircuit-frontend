@@ -63,6 +63,8 @@ const Header = () => {
 
   const handleLogout = async () => {
     await logout();
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
     setIsLoggedIn(false);
     navigate("/login");
   };

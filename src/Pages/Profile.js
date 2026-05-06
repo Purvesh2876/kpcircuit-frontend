@@ -6,7 +6,6 @@ import {
     Button,
     Container,
     Stack,
-    useToast,
     VStack,
     Divider,
     Flex,
@@ -34,6 +33,7 @@ import "@fontsource/pt-sans";
 import { useNavigate } from 'react-router-dom';
 import { FiUser, FiMail, FiPhone, FiCalendar, FiLogOut, FiEdit, FiShield, FiPackage, FiEye, FiEyeOff } from 'react-icons/fi';
 import { getSingleUser, logout, updatePassword, deactivateAccount } from '../actions/api';
+import { useCustomToast } from '../hooks/useCustomToast';
 
 const Profile = () => {
 
@@ -43,7 +43,7 @@ const Profile = () => {
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
     const [dob, setDob] = useState('');
-    const toast = useToast();
+    const toast = useCustomToast();
     const navigate = useNavigate();
 
     // Password update state
@@ -122,6 +122,8 @@ const Profile = () => {
                 duration: 5000
             });
             localStorage.removeItem('email');
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('token');
             navigate('/login');
         } catch (error) {
             toast({
@@ -166,6 +168,8 @@ const Profile = () => {
             isClosable: true,
         });
         localStorage.removeItem('email');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('token');
         navigate('/login');
     };
 

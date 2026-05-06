@@ -17,9 +17,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import { useToast } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { addToCartt, addToWishlistt } from "../../actions/api";
+import { useCustomToast } from "../../hooks/useCustomToast";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -31,10 +31,10 @@ const ProductDetails = () => {
   const [imagee, setImagee] = useState("");
   const [zoomedImage, setZoomedImage] = useState("");
   const [isAddedToWishlist, setIsAddedToWishlist] = useState(false);
-  const toast = useToast();
+  const toast = useCustomToast();
+  const navigate = useNavigate();
   const { isOpen, onToggle } = useDisclosure();
   const { isOpenn, onTogglee, onClosee } = useDisclosure();
-  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -61,6 +61,16 @@ const ProductDetails = () => {
   }, [productId]);
 
   const addToCart = async () => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (!isLoggedIn) {
+      toast({
+        title: "Login required",
+        description: "Please login to add items to your cart.",
+        status: "warning",
+        action: { label: "Login now", onClick: () => navigate('/login') },
+      });
+      return;
+    }
     try {
       const response = await addToCartt(productId, quantity, selectedColor);
 
@@ -68,20 +78,10 @@ const ProductDetails = () => {
         throw new Error(`Network response was not ok: ${response.status}`);
       }
 
-      toast({
-        title: "Item added to cart",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
+      toast({ title: "Item added to cart", status: "success", duration: 3000 });
     } catch (error) {
       console.error("Error adding item to cart:", error);
-      toast({
-        title: "Error adding item to cart",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+      toast({ title: "Error adding item to cart", status: "error", duration: 3000 });
     }
   };
 
@@ -89,12 +89,7 @@ const ProductDetails = () => {
     const response = await addToWishlistt(productId);
     console.log(response);
     setIsAddedToWishlist(true);
-    toast({
-      title: response.data.message,
-      status: "success",
-      duration: 3000,
-      isClosable: true,
-    });
+    toast({ title: response.data.message, status: "success", duration: 3000 });
   };
 
   const handleColorChange = (e) => {

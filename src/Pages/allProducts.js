@@ -500,7 +500,6 @@ import {
   DrawerHeader,
   DrawerBody,
   useDisclosure,
-  useToast,
   InputGroup,
   InputLeftElement,
   Skeleton,
@@ -518,7 +517,7 @@ import {
 } from "@chakra-ui/react";
 
 import { SearchIcon } from "@chakra-ui/icons";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   getAllProducts,
   getAllCategories,
@@ -526,13 +525,15 @@ import {
   addToWishlistt,
   addToCartt,
 } from "../actions/api";
+import { useCustomToast } from "../hooks/useCustomToast";
 
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
 const MAX_PRICE_DEFAULT = 10000;
 
 const AllProducts = () => {
-  const toast = useToast();
+  const toast = useCustomToast();
+  const navigate = useNavigate();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const location = useLocation();
 
@@ -671,6 +672,16 @@ const AllProducts = () => {
   };
 
   const handleAddToCart = async (id, qty) => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (!isLoggedIn) {
+      toast({
+        title: "Login required",
+        description: "Please login to add items to your cart.",
+        status: "warning",
+        action: { label: "Login now", onClick: () => navigate('/login') },
+      });
+      return;
+    }
     const res = await addToCartt(id, qty);
     window.dispatchEvent(new Event("cartUpdated"));
     if (res.status === 200) {

@@ -19,7 +19,6 @@ import {
   DrawerHeader,
   DrawerBody,
   useDisclosure,
-  useToast,
   InputGroup,
   InputLeftElement,
   Skeleton
@@ -27,10 +26,11 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import { Link, useParams } from "react-router-dom";
 import { getAllProducts, addToWishlistt } from "../actions/api";
+import { useCustomToast } from "../hooks/useCustomToast";
 
 const SubCategoryProducts = () => {
   const { subCategoryId } = useParams();
-  const toast = useToast();
+  const toast = useCustomToast();
   const { isOpen, onOpen, onClose } = useDisclosure(); // Mobile Filter Drawer
 
   // --- State ---

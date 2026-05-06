@@ -28,13 +28,13 @@ import {
   TabPanels,
   Input,
   VStack,
-  useToast,
   Flex,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { createOrder, getCart, removeFromCart, updateCartItem } from "../actions/api";
 import { useNavigate } from "react-router-dom";
+import { useCustomToast } from "../hooks/useCustomToast";
 
 /* -------------------- LOAD RAZORPAY SCRIPT -------------------- */
 function loadScript(src) {
@@ -61,7 +61,7 @@ const ShoppingCartDrawer = ({ isCartOpen, setCartOpen }) => {
   const [pincode, setPincode] = useState("");
   const navigate = useNavigate();
 
-  const toast = useToast();
+  const toast = useCustomToast();
 
   /* -------------------- FETCH CART -------------------- */
   const getCartData = async () => {

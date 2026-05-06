@@ -12,7 +12,6 @@ import {
     InputGroup,
     InputRightElement,
     IconButton,
-    useToast,
     Link,
     Image,
     SimpleGrid,
@@ -20,6 +19,7 @@ import {
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { signup } from '../actions/api';
+import { useCustomToast } from '../hooks/useCustomToast';
 import logo from '../logo.png';
 
 const Signup = () => {
@@ -34,7 +34,7 @@ const Signup = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const toast = useToast();
+    const toast = useCustomToast();
     const navigate = useNavigate();
 
     const handleChange = (e) => {
