@@ -15,10 +15,19 @@ import {
   ModalCloseButton,
   ModalBody,
   useDisclosure,
+  VStack,
+  Icon,
+  HStack,
+  Badge,
+  Divider,
+  SimpleGrid,
+  Skeleton,
+  SkeletonText,
 } from "@chakra-ui/react";
+import { MdCheckCircle, MdCancel, MdAssignmentReturn, MdAutorenew } from "react-icons/md";
 
 import { useParams, useNavigate } from "react-router-dom";
-import { addToCartt, addToWishlistt } from "../../actions/api";
+import { addToCartt, addToWishlistt, getSimilarProducts } from "../../actions/api";
 import { useCustomToast } from "../../hooks/useCustomToast";
 
 const ProductDetails = () => {
@@ -31,6 +40,8 @@ const ProductDetails = () => {
   const [imagee, setImagee] = useState("");
   const [zoomedImage, setZoomedImage] = useState("");
   const [isAddedToWishlist, setIsAddedToWishlist] = useState(false);
+  const [similarProducts, setSimilarProducts] = useState([]);
+  const [similarLoading, setSimilarLoading] = useState(false);
   const toast = useCustomToast();
   const navigate = useNavigate();
   const { isOpen, onToggle } = useDisclosure();
@@ -49,9 +60,17 @@ const ProductDetails = () => {
         const productData = await response.json();
         setProduct(productData);
         setImagee(`/uploads${productData.images[0]}`); // http://76.13.247.39:5000
-
-        // Set initial price to the first variant's price
         setCurrentPrice(productData.price);
+
+        // Fetch similar products (non-blocking)
+        setSimilarLoading(true);
+        getSimilarProducts(productId)
+          .then((data) => {
+            setSimilarProducts(data?.products || []);
+          })
+          .catch(() => setSimilarProducts([]))
+          .finally(() => setSimilarLoading(false));
+
       } catch (error) {
         console.error("Error fetching product:", error);
       }
@@ -79,6 +98,7 @@ const ProductDetails = () => {
       }
 
       toast({ title: "Item added to cart", status: "success", duration: 3000 });
+      window.dispatchEvent(new Event("cartUpdated"));
     } catch (error) {
       console.error("Error adding item to cart:", error);
       toast({ title: "Error adding item to cart", status: "error", duration: 3000 });
@@ -107,6 +127,40 @@ const ProductDetails = () => {
   if (!product) {
     return <p>Loading...</p>;
   }
+
+  const SimilarProductCard = ({ p }) => (
+    <Box
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      bg="white"
+      cursor="pointer"
+      onClick={() => navigate(`/productdetails/${p._id}`)}
+      transition="all 0.2s ease"
+      _hover={{ shadow: "md", transform: "translateY(-3px)" }}
+      minW={{ base: "160px", md: "auto" }}
+      flexShrink={0}
+    >
+      <Box h="160px" overflow="hidden" bg="gray.50">
+        <Image
+          src={p.images?.[0] ? `/uploads${p.images[0]}` : ""}
+          alt={p.name}
+          h="160px"
+          w="full"
+          objectFit="cover"
+          fallback={<Box h="160px" bg="gray.100" />}
+        />
+      </Box>
+      <Box p={3}>
+        <Text fontSize="sm" fontWeight="medium" color="gray.800" noOfLines={2} lineHeight="1.4">
+          {p.name}
+        </Text>
+        <Text fontSize="sm" fontWeight="bold" color="brand.500" mt={1}>
+          ₹{p.price}
+        </Text>
+      </Box>
+    </Box>
+  );
 
   return (
     <>
@@ -241,8 +295,156 @@ const ProductDetails = () => {
           >
             {isAddedToWishlist ? "Added to Wishlist" : "Add to Wishlist"}
           </Button>
+
+          {/* Return & Replacement Policy */}
+          <Box
+            borderWidth="1px"
+            borderRadius="lg"
+            borderColor="gray.200"
+            overflow="hidden"
+          >
+            <Box bg="gray.50" px={4} py={3} borderBottomWidth="1px" borderColor="gray.200">
+              <Text fontWeight="semibold" fontSize="sm" color="gray.700" letterSpacing="wide">
+                Return &amp; Replacement Policy
+              </Text>
+            </Box>
+
+            <Box px={4} py={3}>
+              {!product?.isReturnable && !product?.isReplaceable ? (
+                <HStack spacing={3} align="start">
+                  <Icon as={MdCancel} color="red.400" boxSize={5} mt="1px" flexShrink={0} />
+                  <Box>
+                    <Text fontSize="sm" fontWeight="medium" color="red.600">
+                      Not eligible for return or replacement
+                    </Text>
+                    <Text fontSize="xs" color="gray.500" mt={0.5}>
+                      This product cannot be returned or replaced once delivered.
+                    </Text>
+                  </Box>
+                </HStack>
+              ) : (
+                <VStack align="stretch" spacing={3}>
+                  {product?.isReturnable && (
+                    <HStack spacing={3} align="start">
+                      <Icon as={MdAssignmentReturn} color="green.500" boxSize={5} mt="1px" flexShrink={0} />
+                      <Box>
+                        <HStack spacing={2} align="center">
+                          <Text fontSize="sm" fontWeight="medium" color="gray.800">
+                            Returns accepted
+                          </Text>
+                          {(product?.returnWindowDays ?? 0) > 0 && (
+                            <Badge colorScheme="green" fontSize="xs" borderRadius="full">
+                              {product.returnWindowDays} days
+                            </Badge>
+                          )}
+                        </HStack>
+                        <Text fontSize="xs" color="gray.500" mt={0.5}>
+                          {(product?.returnWindowDays ?? 0) > 0
+                            ? `You can request a return within ${product.returnWindowDays} days of delivery.`
+                            : "Contact us to initiate a return."}
+                        </Text>
+                      </Box>
+                    </HStack>
+                  )}
+
+                  {product?.isReturnable && product?.isReplaceable && (
+                    <Divider borderColor="gray.100" />
+                  )}
+
+                  {product?.isReplaceable && (
+                    <HStack spacing={3} align="start">
+                      <Icon as={MdAutorenew} color="blue.500" boxSize={5} mt="1px" flexShrink={0} />
+                      <Box>
+                        <HStack spacing={2} align="center">
+                          <Text fontSize="sm" fontWeight="medium" color="gray.800">
+                            Replacement available
+                          </Text>
+                          {(product?.returnWindowDays ?? 0) > 0 && (
+                            <Badge colorScheme="blue" fontSize="xs" borderRadius="full">
+                              {product.returnWindowDays} days
+                            </Badge>
+                          )}
+                        </HStack>
+                        <Text fontSize="xs" color="gray.500" mt={0.5}>
+                          {(product?.returnWindowDays ?? 0) > 0
+                            ? `Request a replacement within ${product.returnWindowDays} days of delivery.`
+                            : "Contact us to request a replacement."}
+                        </Text>
+                      </Box>
+                    </HStack>
+                  )}
+                </VStack>
+              )}
+            </Box>
+          </Box>
         </Box>
       </Flex>
+
+      {/* Similar Products */}
+      {(similarLoading || similarProducts.length > 0) && (
+        <Box maxW="1400px" mx="auto" px="20px" pb="40px">
+          <Divider mb={6} />
+          <Heading size="md" color="gray.800" mb={5}>
+            Similar Products
+          </Heading>
+
+          {similarLoading ? (
+            <>
+              {/* Mobile skeleton */}
+              <Box display={{ base: "flex", md: "none" }} gap={4} overflowX="auto" pb={2}>
+                {[...Array(3)].map((_, i) => (
+                  <Box key={i} minW="160px" borderRadius="lg" overflow="hidden" borderWidth="1px">
+                    <Skeleton h="160px" />
+                    <Box p={3}>
+                      <SkeletonText noOfLines={2} spacing={2} />
+                      <Skeleton h="16px" mt={2} w="60%" />
+                    </Box>
+                  </Box>
+                ))}
+              </Box>
+
+              {/* Desktop skeleton */}
+              <SimpleGrid display={{ base: "none", md: "grid" }} columns={4} spacing={4}>
+                {[...Array(4)].map((_, i) => (
+                  <Box key={i} borderRadius="lg" overflow="hidden" borderWidth="1px">
+                    <Skeleton h="160px" />
+                    <Box p={3}>
+                      <SkeletonText noOfLines={2} spacing={2} />
+                      <Skeleton h="16px" mt={2} w="60%" />
+                    </Box>
+                  </Box>
+                ))}
+              </SimpleGrid>
+            </>
+          ) : (
+            <>
+              {/* Mobile: horizontal scroll */}
+              <Box
+                display={{ base: "flex", md: "none" }}
+                overflowX="auto"
+                gap={4}
+                pb={2}
+                sx={{ "&::-webkit-scrollbar": { display: "none" } }}
+              >
+                {similarProducts.map((p) => (
+                  <SimilarProductCard key={p._id} p={p} />
+                ))}
+              </Box>
+
+              {/* Desktop: 4-column grid */}
+              <SimpleGrid
+                display={{ base: "none", md: "grid" }}
+                columns={4}
+                spacing={4}
+              >
+                {similarProducts.map((p) => (
+                  <SimilarProductCard key={p._id} p={p} />
+                ))}
+              </SimpleGrid>
+            </>
+          )}
+        </Box>
+      )}
     </>
   );
 };

@@ -38,7 +38,7 @@ import { useCustomToast } from '../hooks/useCustomToast';
 const Profile = () => {
 
     // const [signupForm, setSignupForm] = useState({ email: '', password: '', mobile: '', name: '', dob: '' });
-    const [username, setUsername] = useState('');
+    const [companyName, setCompanyName] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
@@ -142,7 +142,7 @@ const Profile = () => {
         console.log('User response:', response);
         if (response.success === true) {
             console.log('User responsesadkwjhhhhhhhhhh');
-            setUsername(response.data.username);
+            setCompanyName(response.data.companyName || '');
             setName(response.data.name);
             setEmail(response.data.email);
             setMobile(response.data.mobile);
@@ -196,7 +196,7 @@ const Profile = () => {
                                 mb={4}
                             />
                             <Heading size="md" color="gray.800">{name}</Heading>
-                            <Text color="gray.500" fontSize="sm" mt={1}>@{username}</Text>
+                            {companyName && <Text color="gray.500" fontSize="sm" mt={1}>{companyName}</Text>}
                             <Tag mt={4} colorScheme="brand" variant="subtle" px={3} py={1} borderRadius="full">
                                 Premium Member
                             </Tag>

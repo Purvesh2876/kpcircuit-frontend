@@ -82,22 +82,22 @@ const MyOrders = () => {
 
     const statusColor = (status) => {
         switch (status) {
-            case "placed":
-                return "gray";
-            case "packed":
+            case "payment confirmed":
                 return "orange";
-            case "shipped":
+            case "accepted":
                 return "blue";
+            case "in transit":
+                return "purple";
             case "delivered":
                 return "green";
             case "cancelled":
                 return "red";
             case "refunded":
-                return "purple";
+                return "pink";
             case "returned":
                 return "teal";
             case "replaced":
-                return "cyan";
+                return "yellow";
             default:
                 return "gray";
         }

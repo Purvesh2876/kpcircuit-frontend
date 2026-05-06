@@ -24,8 +24,8 @@ import logo from '../logo.png';
 
 const Signup = () => {
     const [formData, setFormData] = useState({
-        username: '',
         name: '',
+        companyName: '',
         email: '',
         password: '',
         mobile: '',
@@ -52,8 +52,8 @@ const Signup = () => {
         setIsLoading(true);
         try {
             const response = await signup(
-                formData.username,
                 formData.name,
+                formData.companyName,
                 formData.email,
                 formData.password,
                 formData.mobile,
@@ -123,23 +123,23 @@ const Signup = () => {
                         <Stack spacing={5}>
                             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
                                 <FormControl isRequired>
-                                    <FormLabel fontSize="sm" fontWeight="bold" color="gray.700">Username</FormLabel>
+                                    <FormLabel fontSize="sm" fontWeight="bold" color="gray.700">Full Name</FormLabel>
                                     <Input
-                                        name="username"
-                                        placeholder="johndoe"
-                                        value={formData.username}
+                                        name="name"
+                                        placeholder="John Doe"
+                                        value={formData.name}
                                         onChange={handleChange}
                                         borderRadius="xl"
                                         bg="gray.50"
                                         _focus={{ bg: 'white', borderColor: 'brand.500' }}
                                     />
                                 </FormControl>
-                                <FormControl isRequired>
-                                    <FormLabel fontSize="sm" fontWeight="bold" color="gray.700">Full Name</FormLabel>
+                                <FormControl>
+                                    <FormLabel fontSize="sm" fontWeight="bold" color="gray.700">Company Name <Text as="span" fontWeight="normal" color="gray.400">(optional)</Text></FormLabel>
                                     <Input
-                                        name="name"
-                                        placeholder="John Doe"
-                                        value={formData.name}
+                                        name="companyName"
+                                        placeholder="Your company"
+                                        value={formData.companyName}
                                         onChange={handleChange}
                                         borderRadius="xl"
                                         bg="gray.50"

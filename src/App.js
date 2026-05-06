@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import Header from './components/header';
 import Home from './Pages/Home';
 import About from './Pages/About';
@@ -29,9 +30,18 @@ import ReturnDetails from './Pages/ReturnDetails.js';
 import CheckoutPage from './Pages/checkout.js';
 import OrderSuccessPage from './Pages/OrderSuccessPage.js';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div>
         <Header />
 

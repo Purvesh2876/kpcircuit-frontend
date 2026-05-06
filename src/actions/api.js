@@ -8,16 +8,15 @@ const instance = axios.create({
     withCredentials: true,
 });
 
-export async function signup(username, name, email, password, mobile, dob) {
+export async function signup(name, companyName, email, password, mobile, dob) {
     try {
         const response = await instance.post("/auth/signup", {
-            username,
             name,
+            companyName,
             email,
             password,
             mobile,
             dob
-
         });
         return response.data;
     } catch (error) {
@@ -115,6 +114,24 @@ export async function resetPassword(token, password, confirmPassword) {
 export async function deactivateAccount(password) {
     try {
         const response = await instance.put("/auth/deactivate", { password });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function saveAddress(addressData) {
+    try {
+        const response = await instance.post("/auth/address", addressData);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function deleteAddress(addressId) {
+    try {
+        const response = await instance.delete(`/auth/address/${addressId}`);
         return response.data;
     } catch (error) {
         throw error;
@@ -352,5 +369,14 @@ export const getReturnById = async (id) => {
         return response.data;
     } catch (error) {
         throw error;
+    }
+};
+
+export const getSimilarProducts = async (productId) => {
+    try {
+        const response = await instance.get(`/products/${productId}/similar`);
+        return response.data;
+    } catch (error) {
+        return { success: false, products: [] };
     }
 };
