@@ -75,7 +75,7 @@ const RequestReturn = () => {
             }
         };
         fetchOrder();
-    }, [orderId, toast]);
+    }, [orderId]);
 
     const handleItemToggle = (item) => {
         setSelectedItems(prev => {
