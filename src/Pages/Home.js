@@ -33,7 +33,7 @@ import { useLocation } from "react-router-dom";
 // Standard Slick Carousel CSS imports
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaHeart, FaShoppingCart, FaStar, FaShippingFast, FaRecycle, FaHeadphones } from "react-icons/fa";
 
 const Home = ({ }) => {
 
@@ -325,7 +325,7 @@ const Home = ({ }) => {
     <>
       <Box px={{ base: 4, md: 12 }} mt={6}>
         <Box
-          bg="#f5f5f5"
+          bgGradient="linear(135deg, #daeaf7 0%, #e8f3ee 50%, #f0f0f7 100%)"
           borderRadius="30px"
           px={{ base: 6, md: 16 }}
           py={{ base: 10, md: 20 }}
@@ -345,10 +345,13 @@ const Home = ({ }) => {
                 fontWeight="700"
                 lineHeight="1.2"
                 mb={6}
+                color="gray.800"
               >
-                Transform Your Tech,
+                Transform{" "}
+                <Text as="span" color="brand.500">Your Tech,</Text>
                 <br />
-                Boost Digital Journey!
+                Boost{" "}
+                <Text as="span" color="brand.500">Digital Journey!</Text>
               </Text>
 
               <Text
@@ -405,60 +408,66 @@ const Home = ({ }) => {
       </Box>
 
       <Box px={{ base: 4, md: 12 }} mt={12}>
-        <Flex
-          direction={{ base: "column", md: "row" }}
-          justify="space-between"
-          align="center"
-          bg="white"
-          borderRadius="20px"
-          py={8}
-          px={10}
-          boxShadow="0 10px 40px rgba(0,0,0,0.05)"
-          gap={8}
-        >
+        <SimpleGrid columns={{ base: 2, md: 4 }} spacing={4}>
           {[
             {
+              icon: FaStar,
+              iconColor: "#f6ad55",
+              iconBg: "#fef3e2",
               title: "Superior Quality",
-              desc: "We give only the best. No compromises.",
+              desc: "Only the best components, no compromises.",
             },
             {
+              icon: FaShippingFast,
+              iconColor: "#4299e1",
+              iconBg: "#ebf8ff",
               title: "Fast & Free Shipping",
-              desc: "Enjoy free shipping on orders over ₹999",
+              desc: "Free shipping on orders over ₹999.",
             },
             {
-              title: "30-Day Returns",
-              desc: "Easy replacement within 30 days",
+              icon: FaRecycle,
+              iconColor: "#48bb78",
+              iconBg: "#f0fff4",
+              title: "7-Day Returns",
+              desc: "Easy return or replacement within 7 days.",
             },
             {
+              icon: FaHeadphones,
+              iconColor: "#ed8936",
+              iconBg: "#fffaf0",
               title: "24/7 Support",
-              desc: "Dedicated support team always available",
+              desc: "Dedicated support team always available.",
             },
           ].map((item, index) => (
-            <Box key={index} textAlign="center">
+            <Box
+              key={index}
+              textAlign="center"
+              bg="white"
+              borderRadius="16px"
+              px={6}
+              py={8}
+              boxShadow="0 4px 20px rgba(0,0,0,0.05)"
+              border="1px solid"
+              borderColor="gray.100"
+            >
               <Box
-                bg="brand.50"
-                color="brand.500"
-                w="50px"
-                h="50px"
+                bg={item.iconBg}
+                w="60px"
+                h="60px"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
+                borderRadius="full"
                 mx="auto"
                 mb={4}
               >
-                ✓
+                <Box as={item.icon} color={item.iconColor} fontSize="26px" />
               </Box>
-
-              <Text fontWeight="600" mb={1}>
-                {item.title}
-              </Text>
-
-              <Text fontSize="sm" color="gray.600">
-                {item.desc}
-              </Text>
+              <Text fontWeight="600" fontSize="sm" mb={1}>{item.title}</Text>
+              <Text fontSize="xs" color="gray.500">{item.desc}</Text>
             </Box>
           ))}
-        </Flex>
+        </SimpleGrid>
       </Box>
 
       <Box id="featured-products" px={{ base: 4, md: 12 }} mt={20}>
