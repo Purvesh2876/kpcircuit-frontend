@@ -92,24 +92,8 @@ const Header = () => {
     };
   }, []);
 
-  const isMobile = window.innerWidth <= 768;
-
   return (
     <Box position="sticky" top="0" bg="white" zIndex="1000" boxShadow="0 2px 20px rgba(0,0,0,0.04)">
-
-      {/* TOP ANNOUNCEMENT BAR */}
-      <Flex
-        bg="brand.500"
-        color="white"
-        height="36px"
-        align="center"
-        justify="center"
-        fontSize="sm"
-        fontWeight="500"
-        letterSpacing="0.5px"
-      >
-        ✨ Premium Electronic Components | 🔒 100% Secure Payments | ✅ 100% Genuine Products
-      </Flex>
 
       {/* MAIN HEADER */}
       <Flex
@@ -240,6 +224,98 @@ const Header = () => {
 
       <ShoppingCartDrawer isCartOpen={isCartOpen} setCartOpen={setCartOpen} />
       <WishlistDrawer isWishlistOpen={isWishlistOpen} setWishlistOpen={setWishlistOpen} />
+
+      {/* MOBILE NAV DRAWER */}
+      <Drawer isOpen={isOpen} placement="left" onClose={() => setIsOpen(false)}>
+        <DrawerOverlay />
+        <DrawerContent maxW="280px">
+          <DrawerCloseButton />
+          <DrawerHeader borderBottomWidth="1px">
+            <Flex align="center">
+              <Img src={logoNew} height="40px" mr={2} />
+              <Text fontSize="md" fontWeight="700" color="brand.500">KP CIRCUIT CITY</Text>
+            </Flex>
+          </DrawerHeader>
+          <DrawerBody p={0}>
+            <VStack align="stretch" spacing={0}>
+              {[
+                { label: "Home", path: "/" },
+                { label: "Shop All", path: "/products" },
+                { label: "About", path: "/about" },
+                { label: "Contact", path: "/contact" },
+                { label: "Shipping Policy", path: "/shipping" },
+              ].map((item) => (
+                <Box
+                  key={item.path}
+                  px={6}
+                  py={4}
+                  cursor="pointer"
+                  borderBottomWidth="1px"
+                  borderColor="gray.100"
+                  _hover={{ bg: "brand.50", color: "brand.500" }}
+                  fontWeight="500"
+                  fontSize="sm"
+                  onClick={() => { navigate(item.path); setIsOpen(false); }}
+                >
+                  {item.label}
+                </Box>
+              ))}
+
+              <Divider my={2} />
+
+              {isLoggedIn ? (
+                <>
+                  {[
+                    { label: "My Orders", path: "/myorders" },
+                    { label: "My Returns", path: "/my-returns" },
+                    { label: "Profile", path: "/profile" },
+                  ].map((item) => (
+                    <Box
+                      key={item.path}
+                      px={6}
+                      py={4}
+                      cursor="pointer"
+                      borderBottomWidth="1px"
+                      borderColor="gray.100"
+                      _hover={{ bg: "brand.50", color: "brand.500" }}
+                      fontWeight="500"
+                      fontSize="sm"
+                      onClick={() => { navigate(item.path); setIsOpen(false); }}
+                    >
+                      {item.label}
+                    </Box>
+                  ))}
+                  <Box
+                    px={6}
+                    py={4}
+                    cursor="pointer"
+                    color="red.500"
+                    fontWeight="500"
+                    fontSize="sm"
+                    _hover={{ bg: "red.50" }}
+                    onClick={() => { handleLogout(); setIsOpen(false); }}
+                  >
+                    Logout
+                  </Box>
+                </>
+              ) : (
+                <Box
+                  px={6}
+                  py={4}
+                  cursor="pointer"
+                  color="brand.500"
+                  fontWeight="500"
+                  fontSize="sm"
+                  _hover={{ bg: "brand.50" }}
+                  onClick={() => { navigate("/login"); setIsOpen(false); }}
+                >
+                  Login
+                </Box>
+              )}
+            </VStack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </Box>
   );
 };

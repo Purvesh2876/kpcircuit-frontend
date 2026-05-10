@@ -20,7 +20,8 @@ const CustomToastUI = ({ title, description, status = "info", onClose, action })
       borderLeft={`4px solid ${color}`}
       px={4}
       py={3}
-      minW="280px"
+      minW="0"
+      w={{ base: "calc(100vw - 32px)", md: "380px" }}
       maxW="380px"
     >
       <Flex align="flex-start" gap={3}>

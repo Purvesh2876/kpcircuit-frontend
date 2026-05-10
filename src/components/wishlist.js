@@ -165,7 +165,7 @@ const WishlistDrawer = ({
       size="md"
     >
       <DrawerOverlay />
-      <DrawerContent maxW="420px">
+      <DrawerContent maxW={{ base: "100%", md: "420px" }}>
         <DrawerCloseButton />
 
         {/* Header */}

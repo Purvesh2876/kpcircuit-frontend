@@ -11,7 +11,7 @@ export function useCustomToast() {
     status = "info",
     duration = 3000,
     isClosable = true,
-    position = "bottom-right",
+    position = window.innerWidth <= 768 ? "bottom" : "bottom-right",
     action,
     ...rest
   }) => {
